@@ -1,0 +1,214 @@
+EntityBundle\Entity\User:
+    type: entity
+    table: user_sonata
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        username:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+        usernameCanonical:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+            column: username_canonical
+        email:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+        emailCanonical:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+            column: email_canonical
+        enabled:
+            type: boolean
+            nullable: false
+        salt:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+        password:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+        lastLogin:
+            type: datetime
+            nullable: false
+            default: CURRENT_TIMESTAMP(6)
+            column: last_login
+        locked:
+            type: boolean
+            nullable: false
+        expired:
+            type: boolean
+            nullable: false
+        expiresAt:
+            type: datetime
+            nullable: false
+            default: '0000-00-00 00:00:00.000000'
+            column: expires_at
+        confirmationToken:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            column: confirmation_token
+        passwordRequestedAt:
+            type: datetime
+            nullable: false
+            default: '0000-00-00 00:00:00.000000'
+            column: password_requested_at
+        roles:
+            type: text
+            nullable: false
+            length: 65535
+            fixed: false
+        credentialsExpired:
+            type: boolean
+            nullable: false
+            column: credentials_expired
+        credentialsExpireAt:
+            type: datetime
+            nullable: false
+            default: '0000-00-00 00:00:00.000000'
+            column: credentials_expire_at
+        createdAt:
+            type: datetime
+            nullable: false
+            default: '0000-00-00 00:00:00.000000'
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            default: '0000-00-00 00:00:00.000000'
+            column: updated_at
+        dateOfBirth:
+            type: datetime
+            nullable: false
+            default: '0000-00-00 00:00:00.000000'
+            column: date_of_birth
+        firstname:
+            type: string
+            nullable: true
+            length: 64
+            fixed: false
+        lastname:
+            type: string
+            nullable: true
+            length: 64
+            fixed: false
+        website:
+            type: string
+            nullable: true
+            length: 64
+            fixed: false
+        biography:
+            type: string
+            nullable: true
+            length: 1000
+            fixed: false
+        gender:
+            type: string
+            nullable: true
+            length: 1
+            fixed: false
+        locale:
+            type: string
+            nullable: true
+            length: 8
+            fixed: false
+        timezone:
+            type: string
+            nullable: true
+            length: 64
+            fixed: false
+        phone:
+            type: string
+            nullable: true
+            length: 64
+            fixed: false
+        facebookUid:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            column: facebook_uid
+        facebookName:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            column: facebook_name
+        facebookData:
+            type: text
+            nullable: true
+            length: 65535
+            fixed: false
+            column: facebook_data
+        twitterUid:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            column: twitter_uid
+        twitterName:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            column: twitter_name
+        twitterData:
+            type: text
+            nullable: true
+            length: 65535
+            fixed: false
+            column: twitter_data
+        gplusUid:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            column: gplus_uid
+        gplusName:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            column: gplus_name
+        gplusData:
+            type: text
+            nullable: true
+            length: 65535
+            fixed: false
+            column: gplus_data
+        token:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+        twoStepCode:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            column: two_step_code
+        document:
+            type: string
+            nullable: true
+            length: 50
+            fixed: false
+    lifecycleCallbacks: {  }
