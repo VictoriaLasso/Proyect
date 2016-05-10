@@ -1,10 +1,10 @@
 imports:
     - { resource: bundles/config/fos_user.yml }
-    #- { resource: bundles/config/sonata_admin.yml }
-    #- { resource: bundles/config/sonata_block.yml }
-    #- { resource: bundles/config/sonata_core.yml }
-    #- { resource: bundles/config/sonata_formatter.yml }
-    #- { resource: bundles/config/sonata_user.yml }
+    - { resource: bundles/config/sonata_admin.yml }
+    - { resource: bundles/config/sonata_block.yml }
+    - { resource: bundles/config/sonata_core.yml }
+    - { resource: bundles/config/sonata_formatter.yml }
+    - { resource: bundles/config/sonata_user.yml }
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
@@ -45,13 +45,16 @@ twig:
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver:    %database_driver%
+        driver:   pdo_mysql
         host:     "%database_host%"
         port:     "%database_port%"
         dbname:   "%database_name%"
         user:     "%database_user%"
         password: "%database_password%"
         charset:  UTF8
+        types:
+            json: Sonata\Doctrine\Types\JsonType
+
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
@@ -63,6 +66,13 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+        entity_managers:
+            default:
+                mappings:
+                    ApplicationSonataUserBundle: ~
+                    SonataUserBundle: ~
+                    FOSUserBundle: ~                                    # If SonataUserBundle extends it
+
 
 # Swiftmailer Configuration
 swiftmailer:

@@ -18,6 +18,14 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new EntityBundle\EntityBundle(),
             new LoginBundle\LoginBundle(),
+            new Sonata\CoreBundle\SonataCoreBundle(),
+            new Sonata\BlockBundle\SonataBlockBundle(),
+            new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
+            // ...
+            // You have 2 options to initialize the SonataUserBundle in your AppKernel,
+            // you can select which bundle SonataUserBundle extends
+            // Most of the cases, you'll want to extend FOSUserBundle though ;)
+            // extend the ``FOSUserBundle``
             new FOS\UserBundle\FOSUserBundle(),
             new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
         );
