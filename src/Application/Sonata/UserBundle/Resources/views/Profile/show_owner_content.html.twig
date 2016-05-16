@@ -1,0 +1,18 @@
+{#
+
+Sonata User Bundle Overrides
+
+This file is part of the BardisCMS.
+Manage the extended Sonata User entity with extra information for the users
+
+(c) George Bardis <george@bardis.info>
+
+#}
+
+{% if page_user.getUserAvatar is not null %}
+    <p>{% media page_user.getUserAvatar.id, 'big' with {'alt': page_user.getUsername, 'title': '' } %}</p>
+{% endif %}
+{% if page_user.getUserHeroImage is not null %}
+    <p>{% media page_user.getUserHeroImage.id, 'big' with {'alt': page_user.getUsername, 'title': '' } %}</p>
+{% endif %}
+<p>{{ page_user.getFullName }} owner</p>

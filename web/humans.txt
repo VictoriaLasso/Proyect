@@ -1,0 +1,16 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    George Bardis -- @bardius -- george@bardis.info
+
+# PAST TEAM MEMBERS:
+
+# THANKS
+
+# TECHNOLOGY COLOPHON
+
+    CSS3, HTML5
+    Grunt, Zurb Foundation 5.5, Animate.css
+    Symfony2, Guzzlee

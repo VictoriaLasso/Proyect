@@ -1,0 +1,59 @@
+{#
+
+Sonata User Bundle Overrides
+
+This file is part of the BardisCMS.
+Manage the extended Sonata User entity with extra information for the users
+
+(c) George Bardis <george@bardis.info>
+
+#}
+
+{% extends "SonataUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+    <div class="small-12 large-6 columns large-centered">
+        <div class="panel">
+            <div class="row">
+
+                <div class="large-12 small-12 columns">
+                    <p>
+                        {{ 'registration.confirmed'|trans({'%username%': user.username}, 'SonataUserBundle') }}
+                    </p>
+                    {% if app.session is not empty %}
+                        {% set targetUrl = app.session.get('_security.' ~ app.security.token.providerKey ~ '.target_path') %}
+                        {% if targetUrl is not empty %}
+                            <p>
+                                <a href="{{ targetUrl }}" title="{{ 'registration.back'|trans({}, 'SonataUserBundle') }}" class="button">
+                                    {{ 'registration.back'|trans({}, 'SonataUserBundle') }}
+                                </a>
+                            </p>
+                        {% endif %}
+                    {% endif %}
+                </div>
+
+                <div class="large-12 small-12 columns">
+                    {% if user.username is null %}
+                        {% include "FOSUserBundle:Security:login_content.html.twig" %}
+                    {% else %}
+                        <p>
+                            {% if user %}
+                                <a href="{{ path('sonata_user_profile_show') }}" title="{{ 'layout.link.user_profile' | trans({}, "SonataUserBundle") }}" class="button">
+                                    {{ 'layout.link.user_profile' | trans({}, "SonataUserBundle") }}
+                                </a>
+                                <a href="{{ path('sonata_user_security_logout') }}" title="{{ 'link_logout' | trans({}, "SonataUserBundle") }}" class="button">
+                                    {{ 'link_logout' | trans({}, "SonataUserBundle") }}
+                                </a>
+                            {% else %}
+                                <a href="{{ path('sonata_user_security_login') }}" title="{{ 'link_login'|trans({}, 'SonataUserBundle') }} / {{ 'link_register'|trans({}, 'SonataUserBundle') }}" class="button">
+                                    {{ 'link_login'|trans({}, 'SonataUserBundle') }} / {{ 'link_register'|trans({}, 'SonataUserBundle') }}
+                                </a>
+                            {% endif %}
+                        </p>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock fos_user_content %}

@@ -1,0 +1,21 @@
+{#
+
+Sonata User Bundle Overrides
+
+This file is part of the BardisCMS.
+Manage the extended Sonata User entity with extra information for the users
+
+(c) George Bardis <george@bardis.info>
+
+#}
+
+
+{% for type in sonata_flashmessages_types() %}
+    {% set domain = domain is defined ? domain : null %}
+    {% for message in sonata_flashmessages_get(type, domain) %}
+        <div class="alert-box {{ type|sonata_status_class }}" data-alert="">
+            {{ message|raw }}
+            <a class="close" href="#" title="dismiss" aria-hidden="true">&times;</a>
+        </div>
+    {% endfor %}
+{% endfor %}

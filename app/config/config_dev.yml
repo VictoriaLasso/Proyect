@@ -2,33 +2,47 @@ imports:
     - { resource: config.yml }
 
 framework:
-    router:
-        resource: "%kernel.root_dir%/config/routing_dev.yml"
-        strict_requirements: true
+    router:   { resource: "%kernel.root_dir%/config/routing_dev.yml" }
     profiler: { only_exceptions: false }
 
 web_profiler:
     toolbar: true
     intercept_redirects: false
 
+#monolog:
+#    handlers:
+#        main:
+#            type:  stream
+#            path:  %kernel.logs_dir%/%kernel.environment%.log
+#            level: debug
+#        firephp:
+#            type:  firephp
+#            level: info
+#
 monolog:
     handlers:
         main:
-            type: stream
-            path: "%kernel.logs_dir%/%kernel.environment%.log"
+            type:         fingers_crossed
+            action_level: error
+            handler:      nested
+        nested:
+            type:  stream
+            path:  %kernel.logs_dir%/%kernel.environment%.log
             level: debug
-            channels: [!event]
-        console:
-            type:   console
-            channels: [!event, !doctrine]
-        # uncomment to get logging in your browser
-        # you may have to allow bigger header sizes in your Web server configuration
-        #firephp:
-        #    type:   firephp
-        #    level:  info
-        #chromephp:
-        #    type:   chromephp
-        #    level:  info
 
-#swiftmailer:
-#    delivery_address: me@example.com
+
+assetic:
+    use_controller: false
+
+swiftmailer:
+    spool:
+        type: file
+        path: %kernel.logs_dir%/emails-%kernel.environment%/
+    disable_delivery: false
+    delivery_address: george@bardis.info
+    delivery_whitelist:
+           # all email addresses matching these regexes will be delivered
+           # like normal, as well as being sent to delivery_address
+           - '/@bardis\.info/'
+           - '/^admin@bardis\.info/'
+

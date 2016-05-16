@@ -1,0 +1,40 @@
+{#
+
+Sonata User Bundle Overrides
+
+This file is part of the BardisCMS.
+Manage the extended Sonata User entity with extra information for the users
+
+(c) George Bardis <george@bardis.info>
+
+#}
+
+{% extends "SonataUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+    <div class="small-12 large-6 columns large-centered">
+        <div class="panel">
+            <div class="row">
+
+                <div class="large-12 small-12 columns">
+                    {% if logged_username is null %}
+                        {% include "FOSUserBundle:Security:login_content.html.twig" %}
+                    {% else %}
+                        <p>
+                            {{ 'layout.login_greeting'|trans({'%username%': logged_username}, 'SonataUserBundle') }}
+                        </p>
+                        <p>
+                            <a href="{{ path('sonata_user_profile_show') }}" title="{{ 'link_profile' | trans({}, "SonataUserBundle") }}" class="button">
+                                {{ 'link_profile' | trans({}, "SonataUserBundle") }}
+                            </a>
+                            <a href="{{ path('sonata_user_security_logout') }}" title="{{ 'link_logout' | trans({}, "SonataUserBundle") }}" class="button">
+                                {{ 'link_logout' | trans({}, "SonataUserBundle") }}
+                            </a>
+                        </p>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock fos_user_content %}

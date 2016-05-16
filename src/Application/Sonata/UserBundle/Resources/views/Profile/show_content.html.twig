@@ -1,0 +1,20 @@
+{#
+
+Sonata User Bundle Overrides
+
+This file is part of the BardisCMS.
+Manage the extended Sonata User entity with extra information for the users
+
+(c) George Bardis <george@bardis.info>
+
+#}
+
+{% if logged_username is null %}
+    {% include "SonataUserBundle:Profile:show_public_content.html.twig" %}
+{% else %}
+    {% if profile_owner %}
+        {% include "SonataUserBundle:Profile:show_owner_content.html.twig" %}
+    {% else %}
+        {% include "SonataUserBundle:Profile:show_private_content.html.twig" %}
+    {% endif %}
+{% endif %}

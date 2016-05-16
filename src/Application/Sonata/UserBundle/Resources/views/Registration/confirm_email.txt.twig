@@ -1,0 +1,30 @@
+{#
+
+Sonata User Bundle Overrides
+
+This file is part of the BardisCMS.
+Manage the extended Sonata User entity with extra information for the users
+
+(c) George Bardis <george@bardis.info>
+
+#}
+
+{% block subject %}
+    {% autoescape false %}
+        Welcome {{ user }}!
+    {% endautoescape %}
+{% endblock %}
+
+{% block body_text %}
+    {% autoescape false %}
+    	Hi {{ user }}!
+        {% if user.username is not null %}
+        Click <a href="{{ confirmationUrl }}">HERE</a> to confirm your account.
+        {% else %}
+        Your account has not been created
+        {% endif %}
+    {% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+{% endblock %}

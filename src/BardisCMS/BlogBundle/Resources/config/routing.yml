@@ -1,0 +1,60 @@
+# Starting the routing of the blog post and pages based on predefined paths
+
+BlogBundle_tagged_noslash:
+    path:   /blog/tagged/{extraParams}/{currentpage}/{totalpageitems}
+    defaults:  { _controller: BlogBundle:Default:alias, alias: tagged, extraParams: all, currentpage: 0, totalpageitems: 0}
+    requirements:
+        currentpage: \d+
+        totalpageitems: \d+
+
+BlogBundle_tagged_onlypage:
+    path:   /blog/tagged/{extraParams}/{currentpage}
+    defaults:  { _controller: BlogBundle:Default:alias, alias: tagged, extraParams: all, currentpage: 0, totalpageitems: 0}
+    requirements:
+        currentpage: \d+
+
+BlogBundle_tagged_onlytag:
+    path:   /blog/tagged/{extraParams}
+    defaults:  { _controller: BlogBundle:Default:alias, alias: tagged, extraParams: all, currentpage: 0, totalpageitems: 0}
+
+BlogBundle_tagged:
+    path:   /blog/tagged
+    defaults:  { _controller: BlogBundle:Default:alias, alias: tagged, extraParams: all, currentpage: 0, totalpageitems: 0}
+
+BlogBundle_filtered:
+    path:  /blog/filterBlogPosts
+    defaults: { _controller: BlogBundle:Default:filterBlogPosts }
+
+# Starting the routing of the blog post and pages based on alias
+# articles is the alias of the blog homepage (amend if different)
+
+BlogBundle_page_noslash:
+    path:   /blog/{alias}/{currentpage}/{totalpageitems}/{extraParams}
+    defaults:  { _controller: BlogBundle:Default:alias, alias: articles, extraParams: all, currentpage: 0, totalpageitems: 0}
+    requirements:
+        currentpage: \d+
+        totalpageitems: \d+
+
+BlogBundle_page_only_pagin:
+    path:   /blog/{alias}/{currentpage}/{totalpageitems}
+    defaults:  { _controller: BlogBundle:Default:alias, alias: articles, extraParams: all, currentpage: 0, totalpageitems: 0}
+    requirements:
+        currentpage: \d+
+
+BlogBundle_page_only_page:
+    path:   /blog/{alias}/{currentpage}
+    defaults:  { _controller: BlogBundle:Default:alias, alias: articles, extraParams: all, currentpage: 0, totalpageitems: 0 }
+
+BlogBundle_page:
+    path:   /blog/{alias}
+    defaults:  { _controller: BlogBundle:Default:alias, alias: articles, extraParams: all, currentpage: 0, totalpageitems: 0 }
+
+BlogBundle_home:
+    path:   /blog
+    defaults:  { _controller: BlogBundle:Default:alias, alias: articles, extraParams: all, currentpage: 0, totalpageitems: 0 }
+
+#BlogBundle_showPage:
+#    path:  /blog/showBlogPage/{id}
+#    defaults: { _controller: BlogBundle:Default:showPage }
+#    requirements:
+#        id: \d+

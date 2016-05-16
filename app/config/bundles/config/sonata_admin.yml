@@ -1,5 +1,0 @@
-sonata_admin:
-    title: AndresProyect Admin
-    templates:
-        # default global templates
-        layout:  SonataAdminBundle::layout.html.twig
