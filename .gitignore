@@ -35,3 +35,5 @@ npm-debug.log
 /app/cache/*
 /app/logs/*
 /app/sessions/*
+parameters.yml
+/vendor/

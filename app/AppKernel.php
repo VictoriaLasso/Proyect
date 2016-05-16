@@ -52,6 +52,7 @@ class AppKernel extends Kernel {
             new Csa\Bundle\GuzzleBundle\CsaGuzzleBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Minifier\MinifierBundle(),
+            new AndresProject\LoginBundle\LoginBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

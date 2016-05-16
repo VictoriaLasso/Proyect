@@ -13,7 +13,7 @@ parameters:
     mailer_password: null
     mailer_encryption: null
     mailer_port: null
-    locale: en
+    locale: es
     secret: 2WYgMKzMLqEVFNU245fLqEVFNvprjmRy0I4Q
     unix_socket: null
     userpass: userpass
