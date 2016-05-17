@@ -1,6 +1,6 @@
 /*
 SQLyog Community v12.11 (64 bit)
-MySQL - 5.6.17 : Database - bardiscms
+MySQL - 5.6.17 : Database - admincms
 *********************************************************************
 */
 
@@ -876,7 +876,7 @@ CREATE TABLE `settings` (
 
 /*Data for the table `settings` */
 
-insert  into `settings`(`id`,`metaDescription`,`metaKeywords`,`fromTitle`,`websiteTitle`,`websiteTwitter`,`websiteAuthor`,`useWebsiteAuthor`,`enableGoogleAnalytics`,`googleAnalyticsId`,`emailSender`,`emailRecepient`,`itemsPerPage`,`blogItemsPerPage`,`activateHttpCache`,`activateSettings`) values (1,'Default Meta Description','Default Meta Keywords','Owner','Website Title',NULL,'Author',1,0,'UA-XXX-XXXXX','george@bardis.info','george@bardis.info',2,2,0,1);
+insert  into `settings`(`id`,`metaDescription`,`metaKeywords`,`fromTitle`,`websiteTitle`,`websiteTwitter`,`websiteAuthor`,`useWebsiteAuthor`,`enableGoogleAnalytics`,`googleAnalyticsId`,`emailSender`,`emailRecepient`,`itemsPerPage`,`blogItemsPerPage`,`activateHttpCache`,`activateSettings`) values (1,'Default Meta Description','Default Meta Keywords','Owner','Website Title',NULL,'Author',1,0,'UA-XXX-XXXXX','george@admin.info','george@admin.info',2,2,0,1);
 
 /*Table structure for table `tags` */
 

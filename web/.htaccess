@@ -4,11 +4,11 @@
 
     # set some environment variables depending on host
     RewriteRule .* - [E=ENVIRONMENT:prod]
-    RewriteCond %{HTTP_HOST} ^bardiscms.prod [NC]
+    RewriteCond %{HTTP_HOST} ^admincms.prod [NC]
     RewriteRule .* - [E=ENVIRONMENT:prod]
-    RewriteCond %{HTTP_HOST} ^bardiscms.dev [NC]
+    RewriteCond %{HTTP_HOST} ^admincms.dev [NC]
     RewriteRule .* - [E=ENVIRONMENT:dev]
-    RewriteCond %{HTTP_HOST} ^bardiscms.test [NC]
+    RewriteCond %{HTTP_HOST} ^admincms.test [NC]
     RewriteRule .* - [E=ENVIRONMENT:test]
 
     #### Redirect non www to www ####
@@ -123,7 +123,7 @@ AddType application/octet-stream .zip
     Header append X-UA-Compatible "IE=Edge,chrome=1"
 
     #### P3P Header of IE issues with 3rd party coockies
-    Header append P3P: "cp=BardisCMS"
+    Header append P3P: "cp=adminCMS"
 
     #### Security Hardening
     # Vivid Matter - Bulletproof Header Security
@@ -159,7 +159,7 @@ AddType application/octet-stream .zip
     Header append Content-Language en
 
     #### Set the Creator
-    Header append Created-By "George Bardis - george@bardis.info"
+    Header append Created-By "George admin - george@admin.info"
     Header append Version "1.0.0"
 </ifModule>
 

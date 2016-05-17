@@ -61,7 +61,7 @@ class DumpDataCollectorPassTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($requestStack, $definition->getArgument(3));
     }
 
-    public function testProcessWithToolbarDisabled()
+    public function testProcessWithTooladminabled()
     {
         $container = new ContainerBuilder();
         $container->addCompilerPass(new DumpDataCollectorPass());

@@ -1,6 +1,6 @@
 /*
- Project: BardisCMS
- Authors: George Bardis
+ Project: adminCMS
+ Authors: George admin
  */
 
 // Create a closure to maintain scope of the '$' and CMS

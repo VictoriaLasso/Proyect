@@ -18,7 +18,7 @@ sonata_block:
         # Some specific blocks from the SonataMediaBundle
         #sonata.media.block.media:
 
-        # Some specific blocks from the BardisCMS Bundles
+        # Some specific blocks from the Admin Bundles
         sonata.admin.pages:
         sonata.admin.menus:
         sonata.admin.blogs:

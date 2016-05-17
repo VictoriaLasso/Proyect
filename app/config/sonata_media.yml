@@ -118,7 +118,7 @@ sonata_media:
 
         image:
             service:    sonata.media.provider.image
-            resizer:    sonata.media.resizer.bardiscms # sonata.media.resizer.square # sonata.media.resizer.simple
+            resizer:    sonata.media.resizer.admin # sonata.media.resizer.square # sonata.media.resizer.simple
             filesystem: sonata.media.filesystem.local
             cdn:        sonata.media.cdn.server
             generator:  sonata.media.generator.default
@@ -128,7 +128,7 @@ sonata_media:
 
         youtube:
             service:    sonata.media.provider.youtube
-            resizer:    sonata.media.resizer.bardiscms # sonata.media.resizer.square # sonata.media.resizer.simple
+            resizer:    sonata.media.resizer.admin # sonata.media.resizer.square # sonata.media.resizer.simple
             filesystem: sonata.media.filesystem.local
             cdn:        sonata.media.cdn.server
             generator:  sonata.media.generator.default
@@ -137,7 +137,7 @@ sonata_media:
 
         vimeo:
             service:    sonata.media.provider.vimeo
-            resizer:    sonata.media.resizer.bardiscms # sonata.media.resizer.square # sonata.media.resizer.simple
+            resizer:    sonata.media.resizer.admin # sonata.media.resizer.square # sonata.media.resizer.simple
             filesystem: sonata.media.filesystem.local
             cdn:        sonata.media.cdn.server
             generator:  sonata.media.generator.default

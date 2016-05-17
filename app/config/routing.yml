@@ -2,11 +2,6 @@ login:
     resource: "@LoginBundle/Resources/config/routing.yml"
     prefix:   /
 
-MenuBundle:
-    resource: "@MenuBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 # app/config/routing.yml
 sonata_page_cache:
     resource: '@SonataCacheBundle/Resources/config/routing/cache.xml'

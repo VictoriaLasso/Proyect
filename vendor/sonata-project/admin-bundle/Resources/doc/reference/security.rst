@@ -121,13 +121,13 @@ EXPORT       (for the native Sonata export links)
 ==========   ========================================
 
 Each permission is relative to an admin: if you try to get a list in FooAdmin (declared as ``app.admin.foo``
-service), Sonata will check if the user has the ``ROLE_APP_ADMIN_FOO_EDIT`` role.
+service), Sonata will check if the user has the ``ROLE_APP_admin_FOO_EDIT`` role.
 
-The role name will be based on the name of your admin service. For instance, ``acme.blog.post.admin`` will become ``ROLE_ACME_BLOG_POST_ADMIN_{ACTION}``.
+The role name will be based on the name of your admin service. For instance, ``acme.blog.post.admin`` will become ``ROLE_ACME_BLOG_POST_admin_{ACTION}``.
 
 .. note::
 
-    If your admin service is named like ``my.blog.admin.foo_bar`` (note the underscore ``_``) it will become: ``ROLE_MY_BLOG_ADMIN_FOO_BAR_{ACTION}``
+    If your admin service is named like ``my.blog.admin.foo_bar`` (note the underscore ``_``) it will become: ``ROLE_MY_BLOG_admin_FOO_BAR_{ACTION}``
 
 So our ``security.yml`` file may look something like this:
 
@@ -143,14 +143,14 @@ So our ``security.yml`` file may look something like this:
 
                 # for convenience, I decided to gather Sonata roles here
                 ROLE_SONATA_FOO_READER:
-                    - ROLE_SONATA_ADMIN_DEMO_FOO_LIST
-                    - ROLE_SONATA_ADMIN_DEMO_FOO_VIEW
+                    - ROLE_SONATA_admin_DEMO_FOO_LIST
+                    - ROLE_SONATA_admin_DEMO_FOO_VIEW
                 ROLE_SONATA_FOO_EDITOR:
-                    - ROLE_SONATA_ADMIN_DEMO_FOO_CREATE
-                    - ROLE_SONATA_ADMIN_DEMO_FOO_EDIT
+                    - ROLE_SONATA_admin_DEMO_FOO_CREATE
+                    - ROLE_SONATA_admin_DEMO_FOO_EDIT
                 ROLE_SONATA_FOO_ADMIN:
-                    - ROLE_SONATA_ADMIN_DEMO_FOO_DELETE
-                    - ROLE_SONATA_ADMIN_DEMO_FOO_EXPORT
+                    - ROLE_SONATA_admin_DEMO_FOO_DELETE
+                    - ROLE_SONATA_admin_DEMO_FOO_EXPORT
 
                 # those are the roles I will use (less verbose)
                 ROLE_STAFF:             [ROLE_USER, ROLE_SONATA_FOO_READER]
@@ -199,7 +199,7 @@ Sonata checks those permissions for the action it handles internally.
 Of course you will have to recheck them in your own code.
 
 Yon can also create your own permissions, for example ``EMAIL``
-(which will turn into role ``ROLE_APP_ADMIN_FOO_EMAIL``).
+(which will turn into role ``ROLE_APP_admin_FOO_EMAIL``).
 
 Going further
 ~~~~~~~~~~~~~
@@ -407,10 +407,10 @@ If you have Admin classes, you can install or update the related CRUD ACL rules:
     $ php app/console sonata:admin:setup-acl
     Starting ACL AdminBundle configuration
     > install ACL for sonata.media.admin.media
-       - add role: ROLE_SONATA_MEDIA_ADMIN_MEDIA_GUEST, permissions: ["VIEW","LIST"]
-       - add role: ROLE_SONATA_MEDIA_ADMIN_MEDIA_STAFF, permissions: ["EDIT","LIST","CREATE"]
-       - add role: ROLE_SONATA_MEDIA_ADMIN_MEDIA_EDITOR, permissions: ["OPERATOR","EXPORT"]
-       - add role: ROLE_SONATA_MEDIA_ADMIN_MEDIA_ADMIN, permissions: ["MASTER"]
+       - add role: ROLE_SONATA_MEDIA_admin_MEDIA_GUEST, permissions: ["VIEW","LIST"]
+       - add role: ROLE_SONATA_MEDIA_admin_MEDIA_STAFF, permissions: ["EDIT","LIST","CREATE"]
+       - add role: ROLE_SONATA_MEDIA_admin_MEDIA_EDITOR, permissions: ["OPERATOR","EXPORT"]
+       - add role: ROLE_SONATA_MEDIA_admin_MEDIA_ADMIN, permissions: ["MASTER"]
     ... skipped ...
 
 If you already have objects, you can generate the object ACL rules for each

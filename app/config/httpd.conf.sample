@@ -6,9 +6,9 @@
     ServerAlias dev.ci.domainname.com
 
     # set some environment variables depending on host
-    SetEnvIfNoCase Host ci\.domainname\.com bardiscms_env=prod
-    SetEnvIfNoCase Host dev\.ci\.domainname\.com bardiscms_env=dev
-    SetEnvIfNoCase Host test\.ci\.domainname\.com bardiscms_env=test
+    SetEnvIfNoCase Host ci\.domainname\.com admin_env=prod
+    SetEnvIfNoCase Host dev\.ci\.domainname\.com admin_env=dev
+    SetEnvIfNoCase Host test\.ci\.domainname\.com admin_env=test
 
     # consider a json formatted log string 
     LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\"" custom
@@ -36,15 +36,15 @@
 
         # use the environment variables above to select correct 
         RewriteCond %{REQUEST_FILENAME} !-f
-        RewriteCond %{ENV:bardiscms_env} test
+        RewriteCond %{ENV:admin_env} test
         RewriteRule ^(.*)$ app_test.php [QSA,L]
 
         RewriteCond %{REQUEST_FILENAME} !-f
-        RewriteCond %{ENV:bardiscms_env} dev
+        RewriteCond %{ENV:admin_env} dev
         RewriteRule ^(.*)$ app_dev.php [QSA,L]
 
         RewriteCond %{REQUEST_FILENAME} !-f
-        RewriteCond %{ENV:bardiscms_env} prod
+        RewriteCond %{ENV:admin_env} prod
         RewriteRule ^(.*)$ app.php [QSA,L]
 
         Options +Indexes

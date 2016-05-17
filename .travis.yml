@@ -30,7 +30,7 @@ before_install:
   - npm install -g bower
 
 before_script:
-  - mysql -e 'create database bardiscms;'
+  - mysql -e 'create database admincms;'
   - curl -s http://getcomposer.org/installer | php
   - cp app/config/parameters.yml.dist app/config/parameters.yml
   - php composer.phar self-update

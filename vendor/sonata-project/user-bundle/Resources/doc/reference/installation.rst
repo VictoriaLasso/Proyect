@@ -209,7 +209,7 @@ Then, add a new custom firewall handlers for the admin:
             ROLE_ADMIN:       [ROLE_USER, ROLE_SONATA_ADMIN]
             ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
             SONATA:
-                - ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT  # if you are using acl then this line must be commented
+                - ROLE_SONATA_PAGE_admin_PAGE_EDIT  # if you are using acl then this line must be commented
 
         providers:
             fos_userbundle:

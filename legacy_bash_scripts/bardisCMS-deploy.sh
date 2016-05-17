@@ -1,4 +1,4 @@
-echo "Starting Symfony2 BardisCMS Deployment"
+echo "Starting Symfony2 adminCMS Deployment"
 
 echo "Clearing Dev Cache"
 
@@ -52,4 +52,4 @@ php app/console assetic:dump --env=prod --no-debug
 
 echo "Done!"
 
-echo "You can now use Symfony2 BardisCMS"
+echo "You can now use Symfony2 adminCMS"

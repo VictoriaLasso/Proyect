@@ -41,8 +41,8 @@ class EditableRolesBuilderTest extends \PHPUnit_Framework_TestCase
                 1 => 'ROLE_SONATA_ADMIN',
                 2 => 'ROLE_ADMIN',
                 3 => 'ROLE_ALLOWED_TO_SWITCH',
-                4 => 'ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT',
-                5 => 'ROLE_SONATA_PAGE_ADMIN_BLOCK_EDIT',
+                4 => 'ROLE_SONATA_PAGE_admin_PAGE_EDIT',
+                5 => 'ROLE_SONATA_PAGE_admin_BLOCK_EDIT',
             ),
             'SONATA' => array(),
         );
@@ -50,11 +50,11 @@ class EditableRolesBuilderTest extends \PHPUnit_Framework_TestCase
         $expected = array(
             'ROLE_ADMIN'                        => 'ROLE_ADMIN: ROLE_USER',
             'ROLE_USER'                         => 'ROLE_USER',
-            'ROLE_SUPER_ADMIN'                  => 'ROLE_SUPER_ADMIN: ROLE_USER, ROLE_SONATA_ADMIN, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH, ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT, ROLE_SONATA_PAGE_ADMIN_BLOCK_EDIT',
+            'ROLE_SUPER_ADMIN'                  => 'ROLE_SUPER_ADMIN: ROLE_USER, ROLE_SONATA_ADMIN, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH, ROLE_SONATA_PAGE_admin_PAGE_EDIT, ROLE_SONATA_PAGE_admin_BLOCK_EDIT',
             'ROLE_SONATA_ADMIN'                 => 'ROLE_SONATA_ADMIN',
             'ROLE_ALLOWED_TO_SWITCH'            => 'ROLE_ALLOWED_TO_SWITCH',
-            'ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT'  => 'ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT',
-            'ROLE_SONATA_PAGE_ADMIN_BLOCK_EDIT' => 'ROLE_SONATA_PAGE_ADMIN_BLOCK_EDIT',
+            'ROLE_SONATA_PAGE_admin_PAGE_EDIT'  => 'ROLE_SONATA_PAGE_admin_PAGE_EDIT',
+            'ROLE_SONATA_PAGE_admin_BLOCK_EDIT' => 'ROLE_SONATA_PAGE_admin_BLOCK_EDIT',
             'SONATA'                            => 'SONATA: ',
         );
 

@@ -2,10 +2,10 @@
 
 /*
  * Sonata User Bundle Overrides
- * This file is part of the BardisCMS.
+ * This file is part of the Admin.
  * Manage the extended Sonata User entity with extra information for the users
  *
- * (c) George Bardis <george@bardis.info>
+ * (c) Victoria Lasso
  *
  */
 
@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-use BardisCMS\PageBundle\Entity\Page as Page;
+use adminCMS\PageBundle\Entity\Page as Page;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -53,22 +53,22 @@ class ProfileFOSUser1Controller extends Controller
         $this->userName = null;
 
         // Get the settings from setting bundle
-        $this->settings = $this->get('bardiscms_settings.load_settings')->loadSettings();
+        $this->settings = $this->get('admin_settings.load_settings')->loadSettings();
 
         // Get the highest user role security permission
         $this->userRole = $this->get('sonata_user.services.helpers')->getLoggedUserHighestRole();
 
         // Check if mobile content should be served
-        $this->serveMobile = $this->get('bardiscms_mobile_detect.device_detection')->testMobile();
+        $this->serveMobile = $this->get('admin_mobile_detect.device_detection')->testMobile();
 
         // Set the flag for allowing HTTP cache
         $this->enableHTTPCache = $this->container->getParameter('kernel.environment') == 'prod' && $this->settings->getActivateHttpCache();
 
         // Check if request was Ajax based
-        $this->isAjaxRequest = $this->get('bardiscms_page.services.ajax_detection')->isAjaxRequest();
+        $this->isAjaxRequest = $this->get('admin_page.services.ajax_detection')->isAjaxRequest();
 
         // Set the publish statuses that are available for the user
-        $this->publishStates = $this->get('bardiscms_page.services.helpers')->getAllowedPublishStates($this->userRole);
+        $this->publishStates = $this->get('admin_page.services.helpers')->getAllowedPublishStates($this->userRole);
 
         // Get the logged user if any
         $this->logged_user = $this->get('sonata_user.services.helpers')->getLoggedUser();
@@ -94,20 +94,20 @@ class ProfileFOSUser1Controller extends Controller
         }
 
         if (!$this->page) {
-            return $this->get('bardiscms_page.services.show_error_page')->errorPageAction(Page::ERROR_404);
+            return $this->get('admin_page.services.show_error_page')->errorPageAction(Page::ERROR_404);
         }
 
         // Simple publishing ACL based on publish state and user Allowed Publish States
-        $accessAllowedForUserRole = $this->get('bardiscms_page.services.helpers')->isUserAccessAllowedByRole(
+        $accessAllowedForUserRole = $this->get('admin_page.services.helpers')->isUserAccessAllowedByRole(
             $this->page->getPublishState(),
             $this->publishStates
         );
 
         if(!$accessAllowedForUserRole){
-            return $this->get('bardiscms_page.services.show_error_page')->errorPageAction(Page::ERROR_401);
+            return $this->get('admin_page.services.show_error_page')->errorPageAction(Page::ERROR_401);
         }
 
-        $this->page = $this->get('bardiscms_settings.set_page_settings')->setPageSettings($this->page);
+        $this->page = $this->get('admin_settings.set_page_settings')->setPageSettings($this->page);
 
         // Get the details of the requested user
         $pageData = array(
@@ -133,7 +133,7 @@ class ProfileFOSUser1Controller extends Controller
 
     /**
      * Render the authentication details edit page
-     * that is not used anymore in BardisCMS
+     * that is not used anymore in Admin
      *
      * @return Response|RedirectResponse
      *
@@ -150,10 +150,10 @@ class ProfileFOSUser1Controller extends Controller
         $this->page = $this->getDoctrine()->getRepository('PageBundle:Page')->findOneByAlias($this::PROFILE_EDIT_PAGE_ALIAS);
 
         if (!$this->page) {
-            return $this->get('bardiscms_page.services.show_error_page')->errorPageAction(Page::ERROR_404);
+            return $this->get('admin_page.services.show_error_page')->errorPageAction(Page::ERROR_404);
         }
 
-        $this->page = $this->get('bardiscms_settings.set_page_settings')->setPageSettings($this->page);
+        $this->page = $this->get('admin_settings.set_page_settings')->setPageSettings($this->page);
 
         $form = $this->get('sonata.user.authentication.form');
         $formHandler = $this->get('sonata.user.authentication.form_handler');
@@ -197,10 +197,10 @@ class ProfileFOSUser1Controller extends Controller
         $this->page = $this->getDoctrine()->getRepository('PageBundle:Page')->findOneByAlias($this::PROFILE_EDIT_PAGE_ALIAS);
 
         if (!$this->page) {
-            return $this->get('bardiscms_page.services.show_error_page')->errorPageAction(Page::ERROR_404);
+            return $this->get('admin_page.services.show_error_page')->errorPageAction(Page::ERROR_404);
         }
 
-        $this->page = $this->get('bardiscms_settings.set_page_settings')->setPageSettings($this->page);
+        $this->page = $this->get('admin_settings.set_page_settings')->setPageSettings($this->page);
 
         // Password Change Form
         $passwordForm = $this->container->get('sonata_user.change_password.form');

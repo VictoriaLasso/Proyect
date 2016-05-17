@@ -10,7 +10,7 @@ imports:
     - { resource: sonata_media.yml }
     - { resource: sonata_classification.yml }
     - { resource: sonata_user.yml }
-    - { resource: bardiscms_bundles.yml }
+    - { resource: admin_bundles.yml }
     - { resource: tinymce.yml }
     - { resource: guzzle.yml }
 
@@ -79,7 +79,7 @@ framework:
             resources:
                 # Default:
                 - FrameworkBundle:Form
-                # BardisCMS:
+                # Admin:
                 - ContentBlockBundle:Form:fields.html.twig
                 - PageBundle:Form:fields.html.twig
                 # UserBundle Overrides:
@@ -110,7 +110,7 @@ framework:
     session:
         # storage_id:           session.storage.native
         # handler_id:           session.handler.native_file
-        name:                   bardiscms
+        name:                   admin
         # cookie_lifetime:      ~
         # cookie_path:          ~
         # cookie_domain:        ~
@@ -164,7 +164,7 @@ doctrine:
 
         # query_cache_driver:
         #     type:                     service
-        #     id:                       bardiscms_doctrine_orm_cache
+        #     id:                       admin_doctrine_orm_cache
 
         # result_cache_driver:
         #    type:                      memcache

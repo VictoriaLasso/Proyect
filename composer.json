@@ -1,19 +1,19 @@
 {
-    "name": "bardis/cms-symfony2",
+    "name": "admin/cms-symfony2",
     "type": "symfony-distribution",
-    "description": "BardisCMS is a Symfony2 CMS distribution with integrated Zurb Foundation 5 (Bower and Grunt with custom builds included for better workflow) for front end and all the major bundles pre-configured (Sonata Admin, User, Media, FOSUser, KnpMenu, Guzzle) combined with extra bundles to provide a fully functional out of the box responsive CMS for websites",
+    "description": "adminCMS is a Symfony2 CMS distribution with integrated Zurb Foundation 5 (Bower and Grunt with custom builds included for better workflow) for front end and all the major bundles pre-configured (Sonata Admin, User, Media, FOSUser, KnpMenu, Guzzle) combined with extra bundles to provide a fully functional out of the box responsive CMS for websites",
     "keywords": ["symfony2", "zurb foundation", "cms", "responsive", "doctrine", "content management", "guzzle", "rest"],
     "license": "MIT",
-    "homepage": "https://github.com/bardius/BardisCMS",
+    "homepage": "https://github.com/bardius/adminCMS",
     "authors": [
         {
-            "name": "George Bardis",
-            "email": "george@bardis.info"
+            "name": "George admin",
+            "email": "george@admin.info"
         }
     ],
     "support": {
-        "email": "george@bardis.info",
-        "issues": "https://github.com/bardius/BardisCMS/issues"
+        "email": "george@admin.info",
+        "issues": "https://github.com/bardius/adminCMS/issues"
     },
     "autoload": {
         "psr-4": { "": "src/" },

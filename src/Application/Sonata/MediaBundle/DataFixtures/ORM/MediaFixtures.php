@@ -2,9 +2,9 @@
 
 /*
  * Media Bundle
- * This file is part of the BardisCMS.
+ * This file is part of the Admin.
  *
- * (c) George Bardis <george@bardis.info>
+ * (c) Victoria Lasso
  *
  */
 

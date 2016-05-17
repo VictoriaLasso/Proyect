@@ -550,7 +550,7 @@ class DB2Platform extends AbstractPlatform
 
             // Some table alteration operations require a table reorganization.
             if ( ! empty($diff->removedColumns) || ! empty($diff->changedColumns)) {
-                $sql[] = "CALL SYSPROC.ADMIN_CMD ('REORG TABLE " . $diff->getName($this)->getQuotedName($this) . "')";
+                $sql[] = "CALL SYSPROC.admin_CMD ('REORG TABLE " . $diff->getName($this)->getQuotedName($this) . "')";
             }
 
             $sql = array_merge($sql, $commentsSQL);

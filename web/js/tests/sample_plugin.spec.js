@@ -1,6 +1,6 @@
 /*
  Project: Project Name
- Authors: George Bardis
+ Authors: George admin
  */
 
 // Create the tests for the JavaScript functionality

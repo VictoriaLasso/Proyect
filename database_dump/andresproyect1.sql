@@ -890,7 +890,7 @@ CREATE TABLE `settings` (
 --
 
 INSERT INTO `settings` (`id`, `metaDescription`, `metaKeywords`, `fromTitle`, `websiteTitle`, `websiteTwitter`, `websiteAuthor`, `useWebsiteAuthor`, `enableGoogleAnalytics`, `googleAnalyticsId`, `emailSender`, `emailRecepient`, `itemsPerPage`, `blogItemsPerPage`, `activateHttpCache`, `activateSettings`) VALUES
-(1, 'Default Meta Description', 'Default Meta Keywords', 'Owner', 'Website Title', NULL, 'Author', 1, 0, 'UA-XXX-XXXXX', 'george@bardis.info', 'george@bardis.info', 2, 2, 0, 1);
+(1, 'Default Meta Description', 'Default Meta Keywords', 'Owner', 'Website Title', NULL, 'Author', 1, 0, 'UA-XXX-XXXXX', 'george@admin.info', 'george@admin.info', 2, 2, 0, 1);
 
 -- --------------------------------------------------------
 

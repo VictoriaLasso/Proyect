@@ -1,6 +1,6 @@
 /*
- Project: BardisCMS
- Authors: George Bardis
+ Project: adminCMS
+ Authors: George admin
  */
 
 // Create the tests for the JavaScript functionality
@@ -8,11 +8,11 @@
 /*
  * Testing the functionality of the Project welcome
  */
-describe('BardisCMS Tests', function () {
+describe('Admin Tests', function () {
     var projectWelcomeTest;
 
     beforeEach(function () {
-        projectWelcomeTest = BARDIS.sampleTest.simpleTest('BardisCMS');
+        projectWelcomeTest = admin.sampleTest.simpleTest('Admin');
     });
 
     it('Project should say welcome', function () {

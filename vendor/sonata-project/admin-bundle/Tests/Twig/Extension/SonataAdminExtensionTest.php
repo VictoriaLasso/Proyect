@@ -1887,7 +1887,7 @@ EOT
         $this->assertSame(1234567, $this->twigExtension->getUrlsafeIdentifier($entity));
     }
 
-    public function testGetUrlsafeIdentifier_GivenAdmin_Foo()
+    public function testGetUrlsafeIdentifier_Givenadmin_Foo()
     {
         $entity = new \stdClass();
 
@@ -1912,7 +1912,7 @@ EOT
         $this->assertSame(1234567, $this->twigExtension->getUrlsafeIdentifier($entity, $this->admin));
     }
 
-    public function testGetUrlsafeIdentifier_GivenAdmin_Bar()
+    public function testGetUrlsafeIdentifier_Givenadmin_Bar()
     {
         $entity = new \stdClass();
 

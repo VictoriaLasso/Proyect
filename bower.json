@@ -1,11 +1,11 @@
 {
-    "name": "bardis-cms-symfony2",
+    "name": "admin-cms-symfony2",
     "version": "v2.8.4",
-    "homepage": "https://github.com/bardius/BardisCMS",
+    "homepage": "https://github.com/bardius/adminCMS",
     "authors": [
-        "George Bardis @bardius george@bardis.info"
+        "George admin @bardius george@admin.info"
     ],
-    "description": "Foundation 5 front end framework for Symfony2 BardisCMS",
+    "description": "Foundation 5 front end framework for Symfony2 adminCMS",
     "license": "MIT",
     "private": true,
     "ignore": [

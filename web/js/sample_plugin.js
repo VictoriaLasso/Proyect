@@ -1,6 +1,6 @@
 /*
  Plugin: Plugin Name
- Authors: George Bardis
+ Authors: George admin
  */
 
 /**

@@ -51,7 +51,7 @@ while true; do
 done
 
 echo "******************************************"
-echo "Updating BardisCMS Release Version"
+echo "Updating adminCMS Release Version"
 echo "OLD_VERSION: $OLD_VERSION"
 echo "NEW_VERSION: $NEW_VERSION"
 echo "******************************************"

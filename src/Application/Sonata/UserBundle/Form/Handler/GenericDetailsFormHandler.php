@@ -2,10 +2,10 @@
 
 /*
  * Sonata User Bundle Overrides
- * This file is part of the BardisCMS.
+ * This file is part of the Admin.
  * Manage the extended Sonata User entity with extra information for the users
  *
- * (c) George Bardis <george@bardis.info>
+ * (c) Victoria Lasso
  *
  */
 
@@ -87,6 +87,6 @@ class GenericDetailsFormHandler
      */
     public function getErrors()
     {
-        return $this->container->get('bardiscms_page.services.helpers')->getFormErrorMessages($this->form);
+        return $this->container->get('admin_page.services.helpers')->getFormErrorMessages($this->form);
     }
 }
