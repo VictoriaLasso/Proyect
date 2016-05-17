@@ -1,0 +1,10 @@
+parameters:
+#    blog.example.class: Admin\BlogBundle\Example
+
+services:
+
+  blog.form.filterblogpostsform:
+    class: Admin\BlogBundle\Form\Type\FilterBlogPostsFormType
+    arguments: ["@doctrine.orm.entity_manager"]
+    tags:
+      - { name: form.type, alias: filterblogpostsform }
