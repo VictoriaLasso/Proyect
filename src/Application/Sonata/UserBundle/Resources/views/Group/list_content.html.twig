@@ -1,0 +1,18 @@
+{#
+
+Sonata User Bundle Overrides
+
+This file is part of the adminCMS.
+Manage the extended Sonata User entity with extra information for the users
+
+(c) Victoria Lasso
+
+#}
+
+<div class="sonata_user_group_list">
+    <ul>
+    {% for group in groups %}
+        <li><a href="{{ path('sonata_user_group_show', {'groupname': group.getName()} ) }}">{{ group.getName() }}</a></li>
+    {% endfor %}
+    </ul>
+</div>

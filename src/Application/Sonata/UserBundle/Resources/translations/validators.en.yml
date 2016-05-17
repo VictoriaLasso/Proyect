@@ -1,0 +1,167 @@
+fos_user:
+
+    username:
+        already_used: "This username is already used"
+        blank: "Please enter a username"
+        short: "The username must have at least {{ limit }} characters"
+        long: "The username is too long. Please restrain at {{ limit }} characters"
+        invalid_chars: "Usernames can contain characters a-z, 0-9, underscores and periods. The username cannot start with a period nor end with a period. It must also not have more than one period sequentially."
+
+    email:
+        already_registered: "This email is already used. You can retrieve your password via the password reset feature"
+        already_used: "This email is already used"
+        blank: "Please enter an email"
+        short: "The email must have at least {{ limit }} characters"
+        long: "The email is too long. Please restrain at {{ limit }} characters"
+        invalid: "The email is not a valid email address"
+
+    password:
+        blank: "Please enter a password"
+        short: "The password must have at least {{ limit }} characters"
+        long: "The password is too long. Please restrain at {{ limit }} characters"
+        mismatch: "The entered passwords don't match"
+        isNotSafe: "The username or email cann not be used as password"
+        isNotLegal: "Password must contain at least one upper case character, one lower case character and one digit without spaces"
+
+    new_password:
+        blank: "Please enter a password"
+        short: "The password must have at least {{ limit }} characters"
+        long: "The password is too long. Please restrain at {{ limit }} characters"
+        mismatch: "The entered passwords don't match"
+        isNotSafe: "The username or email cann not be used as password"
+        isNotLegal: "Password must contain at least one upper case character, one lower case character and one digit without spaces"
+
+    current_password:
+        invalid: "The entered password is invalid"
+
+    group:
+        blank: "Please enter a group name"
+        short: "The group name must have at least {{ limit }} characters"
+        long: "The group name is too long. Please restrain at {{ limit }} characters"
+        invalid_chars: "The group name contains invalid characters"
+
+sonata_user:
+
+    username:
+        already_used: "This username is already used"
+        blank: "Please enter a username"
+        short: "The username must have at least {{ limit }} characters"
+        long: "The username is too long. Please restrain at {{ limit }} characters"
+        invalid_chars: "Usernames can contain characters a-z, 0-9, underscores and periods. The username cannot start with a period nor end with a period. It must also not have more than one period sequentially."
+
+    email:
+        already_registered: "This email is already used. You can retrieve your password via the password reset feature"
+        already_used: "This email is already used"
+        blank: "Please enter an email"
+        short: "The email must have at least {{ limit }} characters"
+        long: "The email is too long. Please restrain at {{ limit }} characters"
+        invalid: "The email is not a valid email address"
+
+    password:
+        blank: "Please enter a password"
+        short: "The password must have at least {{ limit }} characters"
+        long: "The password is too long. Please restrain at {{ limit }} characters"
+        mismatch: "The entered passwords don't match"
+        isNotSafe: "The username or email cann not be used as password"
+        isNotLegal: "Password must contain at least one upper case character, one lower case character and one digit without spaces"
+
+    new_password:
+        blank: "Please enter a password"
+        short: "The password must have at least {{ limit }} characters"
+        long: "The password is too long. Please restrain at {{ limit }} characters"
+        mismatch: "The entered passwords don't match"
+        isNotSafe: "The username or email cann not be used as password"
+        isNotLegal: "Password must contain at least one upper case character, one lower case character and one digit without spaces"
+
+    current_password:
+        invalid: "The entered password is invalid"
+
+    firstname:
+        blank: "Please enter a first name"
+        short: "The first name must have at least {{ limit }} characters"
+        long: "The first name is too long. Please restrain at {{ limit }} characters"
+        invalid_chars: "The first name contains invalid characters"
+
+    lastname:
+        blank: "Please enter a last name"
+        short: "The last name must have at least {{ limit }} characters"
+        long: "The last name is too long. Please restrain at {{ limit }} characters"
+        invalid_chars: "The last name contains invalid characters"
+
+    dateOfBirth:
+        isNotDate: "{{ value }} is not a valid date. The valid date format is dd-mm-yyyy"
+        isNotBirthday: "The date of birth must belong to the past"
+
+    termsAccepted:
+        blank: "Please read and accept the Terms & Conditions"
+        not_accepted: "Please read and accept the Terms & Conditions"
+
+    addressLine1:
+        blank: "Please enter an address"
+        short: "The address must have at least {{ limit }} characters"
+        long: "The address is too long. Please restrain at {{ limit }} characters"
+
+    addressLine2:
+        blank: "Please enter all address details"
+        short: "The address must have at least {{ limit }} characters"
+        long: "The address is too long. Please restrain at {{ limit }} characters"
+
+    addressLine3:
+        blank: "Please enter all address details"
+        short: "The address must have at least {{ limit }} characters"
+        long: "The address is too long. Please restrain at {{ limit }} characters"
+
+    city:
+        blank: "Please enter a city"
+        short: "The city name must have at least {{ limit }} characters"
+        long: "The city name is too long. Please restrain at {{ limit }} characters"
+        invalid_chars: "The city name contains invalid characters"
+
+    county:
+        blank: "Please enter a county"
+        short: "The county name must have at least {{ limit }} characters"
+        long: "The county name is too long. Please restrain at {{ limit }} characters"
+        invalid_chars: "The county name contains invalid characters"
+
+    postcode:
+        blank: "Please enter a postcode"
+        short: "The postcode must have at least {{ limit }} characters"
+        long: "The postcode is too long. Please restrain at {{ limit }} characters"
+        invalid_chars: "The postcode contains invalid characters"
+
+    countryCode:
+        blank: "Please select a country"
+
+    phone:
+        blank: "Please enter a phone number"
+        short: "The phone number must have at least {{ limit }} characters"
+        long: "The phone number is too long. Please restrain at {{ limit }} characters"
+        invalid_chars: "The phone number contains invalid characters"
+
+    mobile:
+        blank: "Please enter a mobile number"
+        short: "The mobile number must have at least {{ limit }} characters"
+        long: "The mobile number is too long. Please restrain at {{ limit }} characters"
+        invalid_chars: "The mobile number contains invalid characters"
+
+    biography:
+        blank: "Please enter some description"
+        short: "The description must have at least {{ limit }} characters"
+        long: "The description is too long. Please restrain at {{ limit }} characters"
+
+    website:
+        blank: "Please enter a website URL"
+        short: "The website URL must have at least {{ limit }} characters"
+        long: "The website URL is too long. Please restrain at {{ limit }} characters"
+        not_valid: "The url {{ value }} is not a valid url."
+
+    secretQuestionResponse:
+        blank: "Please enter a secret question answer"
+        short: "The secret question answer must have at least {{ limit }} characters"
+        long: "The secret question answer is too long. Please restrain at {{ limit }} characters"
+
+    group:
+        blank: "Please enter a group name"
+        short: "The group name must have at least {{ limit }} characters"
+        long: "The group name is too long. Please restrain at {{ limit }} characters"
+        invalid_chars: "The group name contains invalid characters"

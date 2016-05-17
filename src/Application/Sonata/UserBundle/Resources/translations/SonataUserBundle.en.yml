@@ -1,0 +1,271 @@
+# Group
+group:
+    edit:
+        submit: Update group
+    show:
+        name: Group name
+    new:
+        submit: Create group
+    flash:
+        updated: The group has been updated
+        created: The group has been created
+        deleted: The group has been deleted
+
+# Security
+"Bad credentials": "Your user name or password are incorrect"
+# Since Symfony 2.6 the error message has changed
+"Bad credentials.": "Your user name or password are incorrect"
+"The presented password is invalid.": 'The provided password is invalid'
+"The presented password cannot be empty.": 'The provided password cannot be empty'
+
+security:
+    login:
+        username: Username or email address
+        password: Password
+        remember_me: Remember me
+        submit: Login
+
+# Profile
+profile:
+    show:
+        username: Username
+        email: Email
+    edit:
+        submit: Update
+        intro_title: Profile details & account settings
+        intro_copy: Edit your profile details & account settings
+    flash:
+        updated: The profile details have been updated successfully
+    responses:
+        success: The profile details have been updated successfully
+        error: There was an error updating your profile details. Please try again.
+
+# Password change
+change_password:
+    submit: Change password
+    flash:
+        success: The password has been changed
+
+# Registration
+registration:
+    check_email: An email has been sent to %email%. It contains an activation link you must click to activate your account.
+    confirmed: Congrats %username%, your account is now activated.
+    back: Back to the originating page.
+    submit: Register
+    flash:
+        user_created: Your account has been created successfully
+    email:
+        subject: Welcome %username%!
+        message: |
+            Hello %username%!
+
+            To finish activating your account - please visit %confirmationUrl% .
+
+            Kind Regards,
+            The Team
+
+# Password resetting
+resetting:
+    password_already_requested: The password for this user has already been requested within the last 24 hours
+    check_email: Your user has been disabled and an email has been sent to %email%. It contains a link you must click to reset your password and enable your user again
+    request:
+        invalid_username: The username or email address "%username%" does not exist
+        empty_username: The username or email address cannot be empty
+        username: Username or email address
+        submit: Reset password
+    reset:
+        invalid_user: The user with confirmation token does not exist for value "%token%"
+        token_expired: The confirmation token has expired for the value "%token%". Please reset your password again
+        error: There was an error updating your password. Please try again
+        submit: Change password
+    flash:
+        success: The password has been reset successfully and you can now use your account again
+    email:
+        subject: Reset Password
+        message: |
+            Hello %username%!
+
+            To reset your password and enable your user again - please visit %confirmationUrl%
+
+            Regards,
+            the Team.
+
+# Global strings
+layout:
+    logout: Logout
+    login: Login
+    register: Register
+    logged_in_as: Logged in as %username%
+    login_greeting: Hello %username%, you are logged in.
+    link:
+        have_account:   Already have an account?
+        create_account: Create new account
+        user_profile:   User profile
+        login:          Login
+
+# Profile menu items
+profile_menu:
+    show: View Profile
+    edit: Manage Profile
+    logout: Logout
+
+
+# Form field labels
+form:
+    group_name:                     Group name
+    username:                       Username *
+    email:                          Email *
+    current_password:               Current password *
+    password:                       Password *
+    password_confirmation:          Repeat password *
+    new_password:                   New password *
+    new_password_confirmation:      Repeat new password *
+    firstname:                      First name *
+    lastname:                       Last name *
+    campaignname:                   Campaign name
+    tnc:                            I Agree with Terms & Conditions *
+    mandatory_fields:               Mandatory Fields *
+    title:                          Title
+    dateOfBirth:                    Date of birth
+    gender:                         Gender
+    language:                       Language
+    currencyCode:                   Currency
+    website:                        Website URL
+    biography:                      Description
+    timezone:                       Timezone
+    secretQuestion:                 Secret question
+    secretQuestionResponse:         Secret question answer
+    addressLine1:                   Address line 1 *
+    addressLine2:                   Address line 2 *
+    addressLine3:                   Address line 3
+    city:                           City *
+    county:                         County
+    postcode:                       Postcode
+    countryCode:                    Country *
+    phone:                          Phone number (landline)
+    mobile:                         Mobile number
+    label_firstname:                First name *
+    label_lastname:                 Last name *
+    label_date_of_birth:            Date of birth
+    label_website:                  Website URL
+    label_biography:                Description
+    label_locale:                   Language
+    label_timezone:                 Timezone
+    label_phone:                    Phone number (landline)
+    token:                          Token
+    verificationCode:               Two step verification code
+    plainPassword:                  Plain password
+    locked:                         Locked
+    confirmed:                      Confirmed email
+    expired:                        Expired
+    enabled:                        Enabled
+    credentialsExpired:             Credentials expired
+    roles:                          Roles
+    userAvatar:                     User Avatar
+    userHeroImage:                  User Hero Image
+
+widget_label_binary_content:        Select Image
+widget_label_unlink:        Remove Image
+
+# Change Password
+password:
+    missmatch:  The entered passwords don't match
+
+# Form field constant values
+mr:                             Mr
+ms:                             Ms
+mrs:                            Mrs
+miss:                           Miss
+dr:                             Dr
+prof:                           Prof
+GBP:                            £ (GBP)
+EUR:                            € (EUR)
+USD:                            $ (USD)
+spouse_name:                    Spouse middle name
+maiden_name:                    Mother's maiden name
+first_car:                      First car model
+first_pet:                      First pet name
+first_school:                   First school name
+gender_unknown:                 Undefined
+gender_male:                    Male
+gender_female:                  Female
+
+list:
+    label_confirmed:            Confirmed email
+    label_id:                   Id
+
+# Sonata User Roles
+ROLE_SONATA_admin_PAGES_GUEST:              admin_PAGES_GUEST
+ROLE_SONATA_admin_PAGES_STAFF:              admin_PAGES_STAFF
+ROLE_SONATA_admin_PAGES_EDITOR:             admin_PAGES_EDITOR
+ROLE_SONATA_admin_PAGES_ADMIN:              admin_PAGES_ADMIN
+ROLE_SONATA_admin_CATEGORIES_GUEST:         admin_CATEGORIES_GUEST
+ROLE_SONATA_admin_CATEGORIES_STAFF:         admin_CATEGORIES_STAFF
+ROLE_SONATA_admin_CATEGORIES_EDITOR:        admin_CATEGORIES_EDITOR
+ROLE_SONATA_admin_CATEGORIES_ADMIN:         admin_CATEGORIES_ADMIN
+ROLE_SONATA_admin_TAGS_GUEST:               admin_TAGS_GUEST
+ROLE_SONATA_admin_TAGS_STAFF:               admin_TAGS_STAFF
+ROLE_SONATA_admin_TAGS_EDITOR:              admin_TAGS_EDITOR
+ROLE_SONATA_admin_TAGS_ADMIN:               admin_TAGS_ADMIN
+ROLE_SONATA_admin_BLOGS_GUEST:              admin_BLOGS_GUEST
+ROLE_SONATA_admin_BLOGS_STAFF:              admin_BLOGS_STAFF
+ROLE_SONATA_admin_BLOGS_EDITOR:             admin_BLOGS_EDITOR
+ROLE_SONATA_admin_BLOGS_ADMIN:              admin_BLOGS_ADMIN
+ROLE_SONATA_admin_MENUS_GUEST:              admin_MENUS_GUEST
+ROLE_SONATA_admin_MENUS_STAFF:              admin_MENUS_STAFF
+ROLE_SONATA_admin_MENUS_EDITOR:             admin_MENUS_EDITOR
+ROLE_SONATA_admin_MENUS_ADMIN:              admin_MENUS_ADMIN
+ROLE_SONATA_admin_CONTENTBLOCKS_GUEST:      admin_CONTENTBLOCKS_GUEST
+ROLE_SONATA_admin_CONTENTBLOCKS_STAFF:      admin_CONTENTBLOCKS_STAFF
+ROLE_SONATA_admin_CONTENTBLOCKS_EDITOR:     admin_CONTENTBLOCKS_EDITOR
+ROLE_SONATA_admin_CONTENTBLOCKS_ADMIN:      admin_CONTENTBLOCKS_ADMIN
+ROLE_SONATA_admin_SETTINGS_GUEST:           admin_SETTINGS_GUEST
+ROLE_SONATA_admin_SETTINGS_STAFF:           admin_SETTINGS_STAFF
+ROLE_SONATA_admin_SETTINGS_EDITOR:          admin_SETTINGS_EDITOR
+ROLE_SONATA_admin_SETTINGS_ADMIN:           admin_SETTINGS_ADMIN
+ROLE_SONATA_admin_COMMENTS_GUEST:           admin_COMMENTS_GUEST
+ROLE_SONATA_admin_COMMENTS_STAFF:           admin_COMMENTS_STAFF
+ROLE_SONATA_admin_COMMENTS_EDITOR:          admin_COMMENTS_EDITOR
+ROLE_SONATA_admin_COMMENTS_ADMIN:           admin_COMMENTS_ADMIN
+ROLE_SONATA_CLASSIFICATION_admin_CATEGORY_GUEST:    CLASSIFICATION_admin_CATEGORY_GUEST
+ROLE_SONATA_CLASSIFICATION_admin_CATEGORY_STAFF:    CLASSIFICATION_admin_CATEGORY_STAFF
+ROLE_SONATA_CLASSIFICATION_admin_CATEGORY_EDITOR:   CLASSIFICATION_admin_CATEGORY_EDITOR
+ROLE_SONATA_CLASSIFICATION_admin_CATEGORY_ADMIN:    CLASSIFICATION_admin_CATEGORY_ADMIN
+ROLE_SONATA_CLASSIFICATION_admin_TAG_GUEST:         CLASSIFICATION_admin_TAG_GUEST
+ROLE_SONATA_CLASSIFICATION_admin_TAG_STAFF:         CLASSIFICATION_admin_TAG_STAFF
+ROLE_SONATA_CLASSIFICATION_admin_TAG_EDITOR:        CLASSIFICATION_admin_TAG_EDITOR
+ROLE_SONATA_CLASSIFICATION_admin_TAG_ADMIN:         CLASSIFICATION_admin_TAG_ADMIN
+ROLE_SONATA_CLASSIFICATION_admin_COLLECTION_GUEST:  CLASSIFICATION_admin_COLLECTION_GUEST
+ROLE_SONATA_CLASSIFICATION_admin_COLLECTION_STAFF:  CLASSIFICATION_admin_COLLECTION_STAFF
+ROLE_SONATA_CLASSIFICATION_admin_COLLECTION_EDITOR: CLASSIFICATION_admin_COLLECTION_EDITOR
+ROLE_SONATA_CLASSIFICATION_admin_COLLECTION_ADMIN:  CLASSIFICATION_admin_COLLECTION_ADMIN
+ROLE_SONATA_CLASSIFICATION_admin_CONTEXT_GUEST:     CLASSIFICATION_admin_CONTEXT_GUEST
+ROLE_SONATA_CLASSIFICATION_admin_CONTEXT_STAFF:     CLASSIFICATION_admin_CONTEXT_STAFF
+ROLE_SONATA_CLASSIFICATION_admin_CONTEXT_EDITOR:    CLASSIFICATION_admin_CONTEXT_EDITOR
+ROLE_SONATA_CLASSIFICATION_admin_CONTEXT_ADMIN:     CLASSIFICATION_admin_CONTEXT_ADMIN
+ROLE_SONATA_USER_admin_USER_GUEST:                  USER_admin_USER_GUEST
+ROLE_SONATA_USER_admin_USER_STAFF:                  USER_admin_USER_STAFF
+ROLE_SONATA_USER_admin_USER_EDITOR:                 USER_admin_USER_EDITOR
+ROLE_SONATA_USER_admin_USER_ADMIN:                  USER_admin_USER_ADMIN
+ROLE_SONATA_USER_admin_GROUP_GUEST:                 USER_admin_GROUP_GUEST
+ROLE_SONATA_USER_admin_GROUP_STAFF:                 USER_admin_GROUP_STAFF
+ROLE_SONATA_USER_admin_GROUP_EDITOR:                USER_admin_GROUP_EDITOR
+ROLE_SONATA_USER_admin_GROUP_ADMIN:                 USER_admin_GROUP_ADMIN
+ROLE_SONATA_MEDIA_admin_MEDIA_GUEST:                MEDIA_admin_MEDIA_GUEST
+ROLE_SONATA_MEDIA_admin_MEDIA_STAFF:                MEDIA_admin_MEDIA_STAFF
+ROLE_SONATA_MEDIA_admin_MEDIA_EDITOR:               MEDIA_admin_MEDIA_EDITOR
+ROLE_SONATA_MEDIA_admin_MEDIA_ADMIN:                MEDIA_admin_MEDIA_ADMIN
+ROLE_SONATA_MEDIA_admin_GALLERY_GUEST:              MEDIA_admin_GALLERY_GUEST
+ROLE_SONATA_MEDIA_admin_GALLERY_STAFF:              MEDIA_admin_GALLERY_STAFF
+ROLE_SONATA_MEDIA_admin_GALLERY_EDITOR:             MEDIA_admin_GALLERY_EDITOR
+ROLE_SONATA_MEDIA_admin_GALLERY_ADMIN:              MEDIA_admin_GALLERY_ADMIN
+ROLE_SONATA_MEDIA_admin_GALLERY_HAS_MEDIA_GUEST:    MEDIA_admin_GALLERY_HAS_MEDIA_GUEST
+ROLE_SONATA_MEDIA_admin_GALLERY_HAS_MEDIA_STAFF:    MEDIA_admin_GALLERY_HAS_MEDIA_STAFF
+ROLE_SONATA_MEDIA_admin_GALLERY_HAS_MEDIA_EDITOR:   MEDIA_admin_GALLERY_HAS_MEDIA_EDITOR
+ROLE_SONATA_MEDIA_admin_GALLERY_HAS_MEDIA_ADMIN:    MEDIA_admin_GALLERY_HAS_MEDIA_ADMIN
+ROLE_ADMIN:                                         ADMIN
+ROLE_USER:                                          USER
+ROLE_SONATA_ADMIN:                                  SONATA_ADMIN
+ROLE_SUPER_ADMIN:                                   SUPER_ADMIN
+ROLE_ALLOWED_TO_SWITCH:                             ALLOWED_TO_SWITCH
+ROLE_SONATA_PAGE_admin_PAGE_EDIT:                   SONATA_PAGE_admin_PAGE_EDIT

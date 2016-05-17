@@ -1,0 +1,82 @@
+# ACL and User management configuration
+# http://symfony.com/doc/current/bundles/FOSUserBundle/configuration_reference.html
+fos_user:
+
+    db_driver:          orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name:      main
+    user_class:         Application\Sonata\UserBundle\Entity\User
+
+    group:
+        group_class:    Application\Sonata\UserBundle\Entity\Group
+
+    from_email:
+        address:        info@domain.com
+        sender_name:    Admin
+
+    service:
+        mailer:         fos_user.mailer.twig_swift
+
+    registration:
+        form:
+            type:       sonata_user_custom_user_registration
+            validation_groups: [Registration]
+            handler:    sonata_user.registration.form.handler
+        confirmation:
+            enabled:    true
+            template:   ApplicationSonataUserBundle:Registration:confirm_email.txt.twig
+
+    resetting:
+        token_ttl: 86400
+        email:
+            # Use this node only if you don't want the global email address for the resetting email
+            # from_email:
+            #     address:        ...
+            #     sender_name:    ...
+            template:   ApplicationSonataUserBundle:Resetting:email.txt.twig
+        form:
+            type:               sonata_user_resetting
+            handler:            sonata_user.resetting.form.handler
+            name:               sonata_user_resetting_form
+            validation_groups:  [ResetPassword]
+
+    profile:
+        # Authentication Form
+        form:
+            type:               sonata_user_profile
+            validation_groups: [OverriddenProfile] #[Profile] [Authentication] # Please note : this is not the default value
+
+sonata_user:
+
+    security_acl: true
+
+    impersonating_route:    sonata_user_impersonating
+
+    admin:
+        user:
+            class:  Application\Sonata\UserBundle\Admin\Entity\AdminUserAdmin
+
+    profile:
+        default_avatar: 'bundles/sonatauser/default_avatar.png' # Default avatar displayed if user doesn't have one
+
+        register:
+            # You may customize the registration forms over here
+            form:
+                type:               sonata_user_custom_user_registration
+                validation_groups:  [Registration]
+                handler:            sonata_user.registration.form.handler
+                name:               sonata_user_custom_user_registration_form
+            # This allows you to specify where you want your user redirected once he activated his account
+            confirm:
+                redirect:
+                    # Set it to false to disable redirection
+                    route:              'sonata_user_registration_confirmed' #'sonata_user_profile_show'
+                    route_parameters:   ~
+
+        form:
+            validation_groups:  [OverriddenProfile]
+
+        # Customize user portal menu by setting links
+        menu:
+            - { route: 'sonata_user_profile_show', label: 'profile_menu.show', domain: 'SonataUserBundle'}
+            - { route: 'sonata_user_profile_edit', label: 'profile_menu.edit', domain: 'SonataUserBundle'}
+            - { route: 'sonata_user_security_logout', label: 'profile_menu.logout', domain: 'SonataUserBundle'}

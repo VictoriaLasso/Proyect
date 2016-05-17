@@ -1,0 +1,17 @@
+{#
+
+Sonata User Bundle Overrides
+
+This file is part of the adminCMS.
+Manage the extended Sonata User entity with extra information for the users
+
+(c) Victoria Lasso
+
+#}
+
+<form action="{{ path('sonata_user_group_new') }}" {{ form_enctype(form) }} method="POST" class="sonata_user_group_new">
+    {{ form_widget(form) }}
+    <div>
+        <input type="submit" value="{{ 'group.new.submit'|trans([], 'SonataUserBundle') }}" />
+    </div>
+</form>

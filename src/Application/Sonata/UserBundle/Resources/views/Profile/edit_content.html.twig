@@ -1,0 +1,145 @@
+{#
+
+Sonata User Bundle Overrides
+
+This file is part of the adminCMS.
+Manage the extended Sonata User entity with extra information for the users
+
+(c) Victoria Lasso
+
+#}
+
+<h3>{{ 'profile.edit.intro_title'|trans({}, 'SonataUserBundle') }}</h3>
+<p>{{ 'profile.edit.intro_copy'|trans({}, 'SonataUserBundle') }}</p>
+<ul class="accordion" data-accordion role="tablist">
+
+    <li class="accordion-navigation">
+        <a href="#generic_details" role="tab" id="generic_details-heading" aria-controls="generic_details" title="Generic Details">
+            Generic Details
+        </a>
+        <div id="generic_details" class="content" role="tabpanel" aria-labelledby="generic_details-heading">
+            {% form_theme genericDetailsForm with ['Form/fields.html.twig'] %}
+            {{ form_start(genericDetailsForm, {'action': path('sonata_user_profile_edit'), 'method': 'POST', 'attr': {'id': 'sonata_user_generic_details_form', 'novalidate': 'novalidate'} }) }}
+            <div class="row">
+                <div class="large-12 small-12 columns">
+                    <small class="right">{{ 'form.mandatory_fields'|trans({}, 'SonataUserBundle') }}</small>
+                </div>
+                {{ form_widget(genericDetailsForm) }}
+                <div class="large-12 small-12 columns">
+                    <input type="hidden" name="form_section" value="generic_details" />
+                    <button type="submit" name="submit" id="userGenericDetailsFormBtn" class="button">{{ 'profile.edit.submit'|trans({}, 'SonataUserBundle') }}</button>
+                    {% if formMessage is defined %}
+                        <small class="form-message error">
+                            {{ formMessage }}
+                        </small>
+                    {% endif %}
+                </div>
+            </div>
+            {{ form_end(genericDetailsForm) }}
+        </div>
+    </li>
+
+    <li class="accordion-navigation">
+        <a href="#contact" role="tab" id="contact-heading" aria-controls="contact" title="Contact details">
+            Contact details
+        </a>
+        <div id="contact" class="content" role="tabpanel" aria-labelledby="contact-heading">
+            {% form_theme contactDetailsForm with ['Form/fields.html.twig'] %}
+            {{ form_start(contactDetailsForm, {'action': path('sonata_user_profile_edit'), 'method': 'POST', 'attr': {'id': 'sonata_user_contact_details_form', 'novalidate': 'novalidate'} }) }}
+            <div class="row">
+                <div class="large-12 small-12 columns">
+                    <small class="right">{{ 'form.mandatory_fields'|trans({}, 'SonataUserBundle') }}</small>
+                </div>
+                {{ form_widget(contactDetailsForm) }}
+                <div class="large-12 small-12 columns">
+                    <input type="hidden" name="form_section" value="contact" />
+                    <button type="submit" name="submit" id="userContactDetailsFormBtn" class="button">{{ 'profile.edit.submit'|trans({}, 'SonataUserBundle') }}</button>
+                    {% if formMessage is defined %}
+                        <small class="form-message error">
+                            {{ formMessage }}
+                        </small>
+                    {% endif %}
+                </div>
+            </div>
+            {{ form_end(contactDetailsForm) }}
+        </div>
+    </li>
+
+    <li class="accordion-navigation">
+        <a href="#preferences"  role="tab" id="preferences-heading" aria-controls="preferences" title="Account preferences">
+            Account preferences
+        </a>
+        <div id="preferences" class="content" role="tabpanel" aria-labelledby="preferences-heading">
+            {% form_theme accountPreferencesForm with ['Form/fields.html.twig'] %}
+            {{ form_start(accountPreferencesForm, {'action': path('sonata_user_profile_edit'), 'method': 'POST', 'attr': {'id': 'sonata_user_account_preferences_form', 'novalidate': 'novalidate'} }) }}
+            <div class="row">
+                <div class="large-12 small-12 columns">
+                    <small class="right">{{ 'form.mandatory_fields'|trans({}, 'SonataUserBundle') }}</small>
+                </div>
+                {{ form_widget(accountPreferencesForm) }}
+                <div class="large-12 small-12 columns">
+                    <input type="hidden" name="form_section" value="preferences" />
+                    <button type="submit" name="submit" id="userAccountPreferencesFormBtn" class="button">{{ 'profile.edit.submit'|trans({}, 'SonataUserBundle') }}</button>
+                    {% if formMessage is defined %}
+                        <small class="form-message error">
+                            {{ formMessage }}
+                        </small>
+                    {% endif %}
+                </div>
+            </div>
+            {{ form_end(accountPreferencesForm) }}
+        </div>
+    </li>
+
+    <li class="accordion-navigation">
+        <a href="#media"  role="tab" id="media-heading" aria-controls="media" title="Account media">
+            Account media
+        </a>
+        <div id="media" class="content" role="tabpanel" aria-labelledby="media-heading">
+            {% form_theme accountMediaForm with ['Form/fields.html.twig'] %}
+            {{ form_start(accountMediaForm, {'action': path('sonata_user_profile_edit'), 'method': 'POST', 'attr': {'id': 'sonata_user_account_media_form', 'novalidate': 'novalidate'} }) }}
+            <div class="row">
+                <div class="large-12 small-12 columns">
+                    <small class="right">{{ 'form.mandatory_fields'|trans({}, 'SonataUserBundle') }}</small>
+                </div>
+                {{ form_widget(accountMediaForm) }}
+                <div class="large-12 small-12 columns">
+                    <input type="hidden" name="form_section" value="media" />
+                    <button type="submit" name="submit" id="userAccountMediaFormBtn" class="button">{{ 'profile.edit.submit'|trans({}, 'SonataUserBundle') }}</button>
+                    {% if formMessage is defined %}
+                        <small class="form-message error">
+                            {{ formMessage }}
+                        </small>
+                    {% endif %}
+                </div>
+            </div>
+            {{ form_end(accountMediaForm) }}
+        </div>
+    </li>
+
+    <li class="accordion-navigation">
+        <a href="#password" role="tab" id="password-heading" aria-controls="password" title="Change password">
+            Change password
+        </a>
+        <div id="password" class="content" role="tabpanel" aria-labelledby="password-heading">
+            {% form_theme passwordForm with ['Form/fields.html.twig'] %}
+            {{ form_start(passwordForm, {'action': path('sonata_user_profile_edit'), 'method': 'POST', 'attr': {'id': 'sonata_user_change_password_form', 'novalidate': 'novalidate'} }) }}
+            <div class="row">
+                <div class="large-12 small-12 columns">
+                    <small class="right">{{ 'form.mandatory_fields'|trans({}, 'SonataUserBundle') }}</small>
+                </div>
+                {{ form_widget(passwordForm) }}
+                <div class="large-12 small-12 columns">
+                    <input type="hidden" name="form_section" value="password" />
+                    <button type="submit" name="submit" id="userPasswordFormBtn" class="button">{{ 'profile.edit.submit'|trans({}, 'SonataUserBundle') }}</button>
+                    {% if formMessage is defined %}
+                        <small class="form-message error">
+                            {{ formMessage }}
+                        </small>
+                    {% endif %}
+                </div>
+            </div>
+            {{ form_end(passwordForm) }}
+        </div>
+    </li>
+</ul>

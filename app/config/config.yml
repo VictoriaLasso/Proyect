@@ -1,73 +1,296 @@
 imports:
-    - { resource: bundles/config/fos_user.yml }
-    #- { resource: bundles/config/sonata_admin.yml }
-    #- { resource: bundles/config/sonata_block.yml }
-    #- { resource: bundles/config/sonata_core.yml }
-    #- { resource: bundles/config/sonata_formatter.yml }
-    #- { resource: bundles/config/sonata_user.yml }
+
     - { resource: parameters.yml }
     - { resource: security.yml }
-    - { resource: services.yml }
-    - { resource: "@LoginBundle/Resources/config/services.yml" }
+    - { resource: services.xml }
+    - { resource: sonata_cache.yml }
+    - { resource: sonata_timeline.yml }
+    - { resource: sonata_block.yml }
+    - { resource: sonata_admin.yml }
+    - { resource: sonata_media.yml }
+    - { resource: sonata_classification.yml }
+    - { resource: sonata_user.yml }
+    - { resource: admin_bundles.yml }
+    - { resource: tinymce.yml }
+    - { resource: guzzle.yml }
 
-# Put parameters here that don't need to change on each machine where the app is deployed
-# http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
-parameters:
-    locale: en
-
+# framework configuration
 framework:
-    #esi:             ~
-    #translator:      { fallbacks: ["%locale%"] }
-    secret:          "%secret%"
-    router:
-        resource: "%kernel.root_dir%/config/routing.yml"
-        strict_requirements: ~
-    form:            ~
-    csrf_protection: ~
-    validation:      { enable_annotations: true }
-    #serializer:      { enable_annotations: true }
-    templating:
-        engines: ['twig']
-    #default_locale:  "%locale%"
-    trusted_hosts:   ~
-    trusted_proxies: ~
-    session:
-        # handler_id set to null will use default session handler from php.ini
-        handler_id:  ~
-    fragments:       ~
-    http_method_override: true
 
-# Twig Configuration
-twig:
-    debug:            "%kernel.debug%"
-    strict_variables: "%kernel.debug%"
+    secret:                 %secret%
+    http_method_override:   true
+    trusted_proxies:        [192.0.0.1, 10.0.0.0/8, 127.0.0.1] #[]
+    ide:                    ~
+    test:                   false # true only for testing env
+    default_locale:         %locale%
+
+    csrf_protection:
+        enabled:            false
+
+    # form configuration
+    form:
+        enabled:            true
+        csrf_protection:
+            enabled:        true
+
+    # esi configuration
+    esi:
+        enabled:            false
+
+    # fragments configuration
+    fragments:
+        enabled:            false
+        path:               /_fragment
+
+    # router configuration
+    router:
+        resource:	    "%kernel.root_dir%/config/routing.yml"
+        # type:          ~
+        # http_port:     80
+        # https_port:    443
+
+    # translator configuration
+    translator:
+        enabled:            true
+        fallback:           en
+        paths:
+            - '%kernel.root_dir%/../src/Application/Sonata/UserBundle/Resources/translations'
+
+    # validation configuration
+    validation:
+        enabled:            true
+        cache:              ~
+        enable_annotations: true
+        translation_domain: validators
+
+    # annotation configuration
+    annotations:
+        cache:              file
+        file_cache_dir:     %kernel.cache_dir%/annotations
+        debug:              %kernel.debug%
+
+    # templating configuration
+    templating:
+        assets_version:             ~
+        assets_version_format:      %%s?%%s
+        hinclude_default_template:  ~
+
+        form:
+            resources:
+                # Default:
+                - FrameworkBundle:Form
+                # Admin:
+                - ContentBlockBundle:Form:fields.html.twig
+                - PageBundle:Form:fields.html.twig
+                # UserBundle Overrides:
+                - UserBundle:Form:fields.html.twig
+
+        assets_base_urls:
+            http:               []
+            ssl:                []
+
+        cache:                  ~
+
+        engines:
+            - twig
+
+        loaders:                []
+
+        packages:
+            # Prototype
+            name:
+                version:            ~
+                version_format:     %%s?%%s
+                base_urls:
+                    http:           []
+                    ssl:            []
+
+
+    # Session storage configuration
+    session:
+        # storage_id:           session.storage.native
+        # handler_id:           session.handler.native_file
+        name:                   admin
+        # cookie_lifetime:      ~
+        # cookie_path:          ~
+        # cookie_domain:        ~
+        # cookie_secure:        ~
+        cookie_httponly:		true
+        # gc_divisor:           ~
+        # gc_probability:       ~
+        # gc_maxlifetime:       ~
+        # save_path:            %kernel.cache_dir%/sessions
+        handler_id:             session.handler.pdo
+        # time in seconds
+        cookie_lifetime:	    43200
 
 # Doctrine Configuration
 doctrine:
+
     dbal:
-        driver:    %database_driver%
-        host:     "%database_host%"
-        port:     "%database_port%"
-        dbname:   "%database_name%"
-        user:     "%database_user%"
-        password: "%database_password%"
-        charset:  UTF8
-        # if using pdo_sqlite as your database driver:
-        #   1. add the path in parameters.yml
-        #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
-        #   2. Uncomment database_path in parameters.yml.dist
-        #   3. Uncomment next line:
-        #     path:     "%database_path%"
+      types:
+        json:			Sonata\Doctrine\Types\JsonType
+
+      default_connection:       default
+      # Database connections
+      connections:
+        default:
+          dbname:       %database_name%
+          host:         %database_host%
+          port:         %database_port%
+          user:         %database_user%
+          password:     %database_password%
+          driver:       %database_driver%
+          # path:         "%kernel.data_dir%/data.sqlite"]
+          memory:       true
+          unix_socket:  %unix_socket%
+          charset:      UTF8
+
+         # Config for multible connections
+         # doctrine.dbal.[name]_connection service
+         # customer:
+         #   dbname:           customer
+         #   user:             root
+         #   password:         null
+         #   host:             localhost
 
     orm:
-        auto_generate_proxy_classes: "%kernel.debug%"
-        naming_strategy: doctrine.orm.naming_strategy.underscore
-        auto_mapping: true
+        auto_generate_proxy_classes:    %kernel.debug%
+        auto_mapping:                   true
+        # metadata_cache_driver:        apc
+        # result_cache_driver:          apc
+        # query_cache_driver:           apc
+        # connection:                   default
+
+        # query_cache_driver:
+        #     type:                     service
+        #     id:                       admin_doctrine_orm_cache
+
+        # result_cache_driver:
+        #    type:                      memcache
+        #     host:                     localhost
+        #     port:                     11211
+        #     instance_class:           Memcache
+
+# Session storage table
+parameters:
+
+   pdo.db_options:
+        db_table:    session
+        db_id_col:   session_id
+        db_data_col: session_value
+        db_time_col: session_time
+
+# Session services
+services:
+
+    pdo:
+        class: PDO
+        arguments:
+            dsn:        %pdo_service_dsn%
+            user:       "%database_user%"
+            password:   "%database_password%"
+        calls:
+            - [setAttribute, [3, 2]] # \PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION
+
+    session.handler.pdo:
+        class:      Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler
+        arguments:  ["@pdo", "%pdo.db_options%"]
+
+# Twig Configuration
+twig:
+
+    debug:              %kernel.debug%
+    strict_variables:   %kernel.debug%
+    cache:              "%kernel.cache_dir%/twig"
+    charset:            "%kernel.charset%"
+
+    globals:
+        # Examples:
+        pi:             3.14159265359
+
+    form:
+      resources:
+        - 'ContentBlockBundle:Form:fields.html.twig'
+        - 'PageBundle:Form:fields.html.twig'
+        - 'SonataCoreBundle:Form:datepicker.html.twig'
+        - 'SonataUserBundle:Form:fields.html.twig'
+
+# Assetic Configuration
+minifier:
+
+    filter:
+        name:
+            css:        minifier_css
+            js:         minifier_js
+
+assetic:
+
+    debug:              %kernel.debug%
+
+    use_controller:
+        enabled:        "%kernel.debug%"
+        profiler:       false
+
+    read_from:          "%kernel.root_dir%/../web"
+    write_to:           "%kernel.root_dir%/../web"
+
+    bundles:
+      - PageBundle
+      - BlogBundle
+      - CommentBundle
+      - FOSUserBundle
+      # - SkeletonBundle
+
+    filters:
+
+        cssrewrite:		~
+        #jsminplus:		~
+        #    apply_to:		"\.js"
+        #cssmin:				~
+        #    apply_to:		"\.css$"
+
+        scss:					~
+        #scssphp:
+        #  apply_to: "\.scss$"
+        #  import_paths: [ "%kernel.root_dir%/../web/bower_components/foundation/scss" ]
+        #  compass: true
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: "%mailer_transport%"
-    host:      "%mailer_host%"
-    username:  "%mailer_user%"
-    password:  "%mailer_password%"
-    spool:     { type: memory }
+
+    transport:  %mailer_transport%
+    host:       %mailer_host%
+    username:   %mailer_user%
+    password:   %mailer_password%
+    logging:    true
+    spool:      { type: memory }
+
+# Doctrine Extensions
+stof_doctrine_extensions:
+
+    default_locale:         en_GB
+
+    orm:
+        default:
+          timestampable:    true
+
+    # Only used if you activated the Uploadable extension
+    uploadable:
+
+        # Default file path: This is one of the three ways you can configure the path for the Uploadable extension
+        default_file_path:          %kernel.root_dir%/../web/uploads
+
+        # Mime type guesser class: Optional. By default, we provide an adapter for the one present in the HttpFoundation component of Symfony
+        mime_type_guesser_class:    Stof\DoctrineExtensionsBundle\Uploadable\MimeTypeGuesserAdapter
+
+        # Default file info class implementing FileInfoInterface: Optional. By default we provide a class which is prepared to receive an UploadedFile instance.
+        default_file_info_class:    Stof\DoctrineExtensionsBundle\Uploadable\UploadedFileInfo
+
+
+knp_menu:
+    twig:  # use "twig: false" to disable the Twig extension and the TwigRenderer
+        template:       knp_menu.html.twig
+
+    templating:         false # if true, enables the helper for PHP templates
+    default_renderer:   twig # The renderer to use, list is also available by default

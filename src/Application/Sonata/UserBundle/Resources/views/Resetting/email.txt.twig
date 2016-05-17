@@ -1,0 +1,25 @@
+{#
+
+Sonata User Bundle Overrides
+
+This file is part of the adminCMS.
+Manage the extended Sonata User entity with extra information for the users
+
+(c) Victoria Lasso
+
+#}
+
+{% block subject %}
+    {% autoescape false %}
+    {{ 'resetting.email.subject'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}, 'SonataUserBundle') }}
+    {% endautoescape %}
+{% endblock %}
+
+{% block body_text %}
+    {% autoescape false %}
+    {{ 'resetting.email.message'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}, 'SonataUserBundle') }}
+    {% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+{% endblock %}

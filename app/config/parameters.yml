@@ -1,0 +1,20 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_mysql
+    database_host: localhost
+    database_port: 3306
+    database_name: andresproyect1
+    database_user: root
+    database_password: 123456
+    pdo_service_dsn: 'mysql:dbhost=%database_host%;dbname=%database_name%'
+    mailer_transport: smtp
+    mailer_host: localhost
+    mailer_user: null
+    mailer_password: null
+    mailer_encryption: null
+    mailer_port: null
+    locale: es
+    secret: 2WYgMKzMLqEVFNU245fLqEVFNvprjmRy0I4Q
+    unix_socket: null
+    userpass: userpass
+    adminpass: adminpass
