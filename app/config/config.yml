@@ -13,6 +13,7 @@ imports:
     - { resource: admin_bundles.yml }
     - { resource: tinymce.yml }
     - { resource: guzzle.yml }
+    - { resource: "@SecurityBundle/Resources/config/services.yml" }
 
 # framework configuration
 framework:

@@ -1,0 +1,27 @@
+contact_form:
+
+    firstname:
+        blank: "Please enter a first name"
+        short: "The first name must have at least {{ limit }} characters"
+        long: "The first name is too long. Please restrain at {{ limit }} characters"
+        invalid_chars: "The first name contains invalid characters"
+
+    surname:
+        blank: "Please enter a last name"
+        short: "The last name must have at least {{ limit }} characters"
+        long: "The last name is too long. Please restrain at {{ limit }} characters"
+        invalid_chars: "The last name contains invalid characters"
+
+    email:
+        blank: "Please enter an email"
+        short: "The email must have at least {{ limit }} characters"
+        long: "The email is too long. Please restrain at {{ limit }} characters"
+        invalid: "The email is not a valid email address"
+
+    comment:
+        blank: "Please enter your comment / question"
+        short: "The comment / question must have at least {{ limit }} characters"
+        long: "The comment / question is too long. Please restrain at {{ limit }} characters"
+
+    bottrap:
+        not_blank: "If you are not a bot this field should be empty"

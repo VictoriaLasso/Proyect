@@ -1,0 +1,849 @@
+<?php
+
+/*
+ * Blog Bundle
+ * This file is part of the Admin.
+ *
+ * (c) Victoria Lasso
+ *
+ */
+
+namespace Admin\BlogBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Application\Sonata\MediaBundle\Entity\Media;
+use Application\Sonata\UserBundle\Entity\User;
+use Doctrine\Common\Collections\ArrayCollection;
+use Admin\ContentBlockBundle\Entity\ContentBlock;
+use Admin\CategoryBundle\Entity\Category;
+use Admin\TagBundle\Entity\Tag;
+use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
+
+/**
+ * Admin\BlogBundle\Entity\Blog
+ *
+ * @ORM\Table(name="blogs")
+ * @ORM\HasLifecycleCallbacks
+ * @DoctrineAssert\UniqueEntity(fields="alias", message="Alias must be unique")
+ * @ORM\Entity(repositoryClass="Admin\BlogBundle\Repository\BlogRepository")
+ */
+class Blog {
+
+    /*
+     * Publish states
+     */
+    const STATUS_UNPUBLISHED    = 0;
+    const STATUS_PUBLISHED      = 1;
+    const STATUS_PREVIEW        = 2;
+    const STATUS_NONAUTHONLY    = 3;
+    const STATUS_AUTHONLY       = 4;
+
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    protected $date;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $title;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User", cascade={"persist"})
+     * @ORM\JoinColumn(name="author", onDelete="SET NULL")
+     */
+    protected $author;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true, unique = true)
+     */
+    protected $alias = null;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $pageOrder = 99;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $showPageTitle;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $publishState;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $pageclass = null;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $description = null;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $keywords = null;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $introtext = null;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"})
+     * @ORM\JoinColumn(name="introimage", onDelete="SET NULL")
+     */
+    protected $introimage;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"})
+     * @ORM\JoinColumn(name="bgimage", onDelete="SET NULL")
+     */
+    protected $bgimage;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"})
+     * @ORM\JoinColumn(name="introvideo", onDelete="SET NULL")
+     */
+    protected $introvideo;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $intromediasize = null;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $introclass = null;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Admin\CategoryBundle\Entity\Category", inversedBy="blogs", cascade={"persist"})
+     * @ORM\JoinTable(name="blogs_categories")
+     */
+    protected $categories;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Admin\TagBundle\Entity\Tag", inversedBy="blogs", cascade={"persist"})
+     * @ORM\JoinTable(name="blogs_tags")
+     */
+    protected $tags;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $pagetype = null;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Admin\ContentBlockBundle\Entity\ContentBlock", inversedBy="blog_maincontents", cascade={"persist"})
+     * @ORM\JoinTable(name="blog_maincontent_blocks")
+     * */
+    protected $maincontentblocks;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Admin\ContentBlockBundle\Entity\ContentBlock", inversedBy="blog_bannercontents", cascade={"persist"})
+     * @ORM\JoinTable(name="blog_bannercontent_blocks")
+     * */
+    protected $bannercontentblocks;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Admin\ContentBlockBundle\Entity\ContentBlock", inversedBy="blog_modalcontents", cascade={"persist"})
+     * @ORM\JoinTable(name="blog_modalcontent_blocks")
+     * */
+    protected $modalcontentblocks;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Admin\ContentBlockBundle\Entity\ContentBlock", inversedBy="blog_extracontents", cascade={"persist"})
+     * @ORM\JoinTable(name="blog_extracontent_blocks")
+     * */
+    protected $extracontentblocks;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Admin\CommentBundle\Entity\Comment", mappedBy="blogPost")
+     */
+    protected $comments;
+
+    /**
+     * @ORM\Column(name="date_last_modified", type="datetime")
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $dateLastModified;
+
+    public function __construct() {
+        $this->modalcontentblocks = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->maincontentblocks = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->bannercontentblocks = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->extracontentblocks = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->date = new \DateTime();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return Blog
+     */
+    public function setDate($date) {
+        $this->date = $date;
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getDate() {
+        return $this->date;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Blog
+     */
+    public function setTitle($title) {
+        $this->title = $title;
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle() {
+        return $this->title;
+    }
+
+    /**
+     * Set alias
+     *
+     * @param string $alias
+     * @return Blog
+     */
+    public function setAlias($alias) {
+        $this->alias = $alias;
+        return $this;
+    }
+
+    /**
+     * Get alias
+     *
+     * @return string
+     */
+    public function getAlias() {
+        return $this->alias;
+    }
+
+    /**
+     * Set pageOrder
+     *
+     * @param integer $pageOrder
+     * @return Blog
+     */
+    public function setPageOrder($pageOrder) {
+        $this->pageOrder = $pageOrder;
+
+        return $this;
+    }
+
+    /**
+     * Get pageOrder
+     *
+     * @return integer
+     */
+    public function getPageOrder() {
+        return $this->pageOrder;
+    }
+
+    /**
+     * Set showPageTitle
+     *
+     * @param integer $showPageTitle
+     * @return Blog
+     */
+    public function setShowPageTitle($showPageTitle) {
+        $this->showPageTitle = $showPageTitle;
+
+        return $this;
+    }
+
+    /**
+     * Get showPageTitle
+     *
+     * @return integer
+     */
+    public function getShowPageTitle() {
+        return $this->showPageTitle;
+    }
+
+    /**
+     * Set publishState
+     *
+     * @param integer $publishState
+     * @return Blog
+     */
+    public function setPublishState($publishState) {
+        $this->publishState = $publishState;
+
+        return $this;
+    }
+
+    /**
+     * Get publishState
+     *
+     * @return integer
+     */
+    public function getPublishState() {
+        return $this->publishState;
+    }
+
+    /**
+     * Set pageclass
+     *
+     * @param string $pageclass
+     * @return Blog
+     */
+    public function setPageclass($pageclass) {
+        $this->pageclass = $pageclass;
+
+        return $this;
+    }
+
+    /**
+     * Get pageclass
+     *
+     * @return string
+     */
+    public function getPageclass() {
+        return $this->pageclass;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Blog
+     */
+    public function setDescription($description) {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription() {
+        return $this->description;
+    }
+
+    /**
+     * Set keywords
+     *
+     * @param string $keywords
+     * @return Blog
+     */
+    public function setKeywords($keywords) {
+        $this->keywords = $keywords;
+
+        return $this;
+    }
+
+    /**
+     * Get keywords
+     *
+     * @return string
+     */
+    public function getKeywords() {
+        return $this->keywords;
+    }
+
+    /**
+     * Set introtext
+     *
+     * @param string $introtext
+     * @return Blog
+     */
+    public function setIntrotext($introtext) {
+        $this->introtext = $introtext;
+
+        return $this;
+    }
+
+    /**
+     * Get introtext
+     *
+     * @return string
+     */
+    public function getIntrotext() {
+        return $this->introtext;
+    }
+
+    /**
+     * Set intromediasize
+     *
+     * @param string $intromediasize
+     * @return Blog
+     */
+    public function setIntromediasize($intromediasize) {
+        $this->intromediasize = $intromediasize;
+
+        return $this;
+    }
+
+    /**
+     * Get intromediasize
+     *
+     * @return string
+     */
+    public function getIntromediasize() {
+        return $this->intromediasize;
+    }
+
+    /**
+     * Set introclass
+     *
+     * @param string $introclass
+     * @return Blog
+     */
+    public function setIntroclass($introclass) {
+        $this->introclass = $introclass;
+
+        return $this;
+    }
+
+    /**
+     * Get introclass
+     *
+     * @return string
+     */
+    public function getIntroclass() {
+        return $this->introclass;
+    }
+
+    /**
+     * Set pagetype
+     *
+     * @param string $pagetype
+     * @return Blog
+     */
+    public function setPagetype($pagetype) {
+        $this->pagetype = $pagetype;
+
+        return $this;
+    }
+
+    /**
+     * Set introvideo
+     *
+     * @param Application\Sonata\MediaBundle\Entity\Media $introvideo
+     * @return Page
+     */
+    public function setIntrovideo(\Application\Sonata\MediaBundle\Entity\Media $introvideo = null) {
+        $this->introvideo = $introvideo;
+        return $this;
+    }
+
+    /**
+     * Get introvideo
+     *
+     * @return Application\Sonata\MediaBundle\Entity\Media
+     */
+    public function getIntrovideo() {
+        return $this->introvideo;
+    }
+
+    /**
+     * Get pagetype
+     *
+     * @return string
+     */
+    public function getPagetype() {
+        return $this->pagetype;
+    }
+
+    /**
+     * Set author
+     *
+     * @param \Application\Sonata\UserBundle\Entity\User $author
+     * @return Blog
+     */
+    public function setAuthor(\Application\Sonata\UserBundle\Entity\User $author = null) {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return \Application\Sonata\UserBundle\Entity\User
+     */
+    public function getAuthor() {
+        return $this->author;
+    }
+
+    /**
+     * Set introimage
+     *
+     * @param \Application\Sonata\MediaBundle\Entity\Media $introimage
+     * @return Blog
+     */
+    public function setIntroimage(\Application\Sonata\MediaBundle\Entity\Media $introimage = null) {
+        $this->introimage = $introimage;
+
+        return $this;
+    }
+
+    /**
+     * Get introimage
+     *
+     * @return \Application\Sonata\MediaBundle\Entity\Media
+     */
+    public function getIntroimage() {
+        return $this->introimage;
+    }
+
+    /**
+     * Set bgimage
+     *
+     * @param \Application\Sonata\MediaBundle\Entity\Media $bgimage
+     * @return Blog
+     */
+    public function setBgimage(\Application\Sonata\MediaBundle\Entity\Media $bgimage = null) {
+        $this->bgimage = $bgimage;
+
+        return $this;
+    }
+
+    /**
+     * Get bgimage
+     *
+     * @return \Application\Sonata\MediaBundle\Entity\Media
+     */
+    public function getBgimage() {
+        return $this->bgimage;
+    }
+
+    /**
+     * Add categories
+     *
+     * @param \Admin\CategoryBundle\Entity\Category $categories
+     * @return Blog
+     */
+    public function addCategory(\Admin\CategoryBundle\Entity\Category $categories) {
+        $this->categories[] = $categories;
+
+        return $this;
+    }
+
+    /**
+     * Remove categories
+     *
+     * @param \Admin\CategoryBundle\Entity\Category $categories
+     */
+    public function removeCategory(\Admin\CategoryBundle\Entity\Category $categories) {
+        $this->categories->removeElement($categories);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategories() {
+        return $this->categories;
+    }
+
+    /**
+     * Add tags
+     *
+     * @param \Admin\TagBundle\Entity\Tag $tags
+     * @return Blog
+     */
+    public function addTag(\Admin\TagBundle\Entity\Tag $tags) {
+        $this->tags[] = $tags;
+
+        return $this;
+    }
+
+    /**
+     * Remove tags
+     *
+     * @param \Admin\TagBundle\Entity\Tag $tags
+     */
+    public function removeTag(\Admin\TagBundle\Entity\Tag $tags) {
+        $this->tags->removeElement($tags);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags() {
+        return $this->tags;
+    }
+
+    /**
+     * Add maincontentblocks
+     *
+     * @param \Admin\ContentBlockBundle\Entity\ContentBlock $maincontentblocks
+     * @return Blog
+     */
+    public function addMaincontentblock(\Admin\ContentBlockBundle\Entity\ContentBlock $maincontentblocks) {
+        $this->maincontentblocks[] = $maincontentblocks;
+
+        return $this;
+    }
+
+    /**
+     * Remove maincontentblocks
+     *
+     * @param \Admin\ContentBlockBundle\Entity\ContentBlock $maincontentblocks
+     */
+    public function removeMaincontentblock(\Admin\ContentBlockBundle\Entity\ContentBlock $maincontentblocks) {
+        $this->maincontentblocks->removeElement($maincontentblocks);
+    }
+
+    /**
+     * Get maincontentblocks
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMaincontentblocks() {
+        return $this->maincontentblocks;
+    }
+
+    /**
+     * Add bannercontentblocks
+     *
+     * @param \Admin\ContentBlockBundle\Entity\ContentBlock $bannercontentblocks
+     * @return Blog
+     */
+    public function addBannercontentblock(\Admin\ContentBlockBundle\Entity\ContentBlock $bannercontentblocks) {
+        $this->bannercontentblocks[] = $bannercontentblocks;
+
+        return $this;
+    }
+
+    /**
+     * Remove bannercontentblocks
+     *
+     * @param \Admin\ContentBlockBundle\Entity\ContentBlock $bannercontentblocks
+     */
+    public function removeBannercontentblock(\Admin\ContentBlockBundle\Entity\ContentBlock $bannercontentblocks) {
+        $this->bannercontentblocks->removeElement($bannercontentblocks);
+    }
+
+    /**
+     * Get bannercontentblocks
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBannercontentblocks() {
+        return $this->bannercontentblocks;
+    }
+
+    /**
+     * Add modalcontentblocks
+     *
+     * @param \Admin\ContentBlockBundle\Entity\ContentBlock $modalcontentblocks
+     * @return Blog
+     */
+    public function addModalcontentblock(\Admin\ContentBlockBundle\Entity\ContentBlock $modalcontentblocks) {
+        $this->modalcontentblocks[] = $modalcontentblocks;
+
+        return $this;
+    }
+
+    /**
+     * Remove modalcontentblocks
+     *
+     * @param \Admin\ContentBlockBundle\Entity\ContentBlock $modalcontentblocks
+     */
+    public function removeModalcontentblock(\Admin\ContentBlockBundle\Entity\ContentBlock $modalcontentblocks) {
+        $this->modalcontentblocks->removeElement($modalcontentblocks);
+    }
+
+    /**
+     * Get modalcontentblocks
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getModalcontentblocks() {
+        return $this->modalcontentblocks;
+    }
+
+    /**
+     * Add extracontentblocks
+     *
+     * @param \Admin\ContentBlockBundle\Entity\ContentBlock $extracontentblocks
+     * @return Blog
+     */
+    public function addExtracontentblock(\Admin\ContentBlockBundle\Entity\ContentBlock $extracontentblocks) {
+        $this->extracontentblocks[] = $extracontentblocks;
+
+        return $this;
+    }
+
+    /**
+     * Remove extracontentblocks
+     *
+     * @param \Admin\ContentBlockBundle\Entity\ContentBlock $extracontentblocks
+     */
+    public function removeExtracontentblock(\Admin\ContentBlockBundle\Entity\ContentBlock $extracontentblocks) {
+        $this->extracontentblocks->removeElement($extracontentblocks);
+    }
+
+    /**
+     * Get extracontentblocks
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getExtracontentblocks() {
+        return $this->extracontentblocks;
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \Admin\CommentBundle\Entity\Comment $comments
+     *
+     * @return Blog
+     */
+    public function addComment(\Admin\CommentBundle\Entity\Comment $comments) {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \Admin\CommentBundle\Entity\Comment $comments
+     */
+    public function removeComment(\Admin\CommentBundle\Entity\Comment $comments) {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments() {
+        return $this->comments;
+    }
+
+    /**
+     * Get dateLastModified
+     *
+     * @return integer
+     */
+    public function getDateLastModified() {
+        return $this->dateLastModified;
+    }
+
+    /**
+     * Set dateLastModified
+     *
+     * @param integer $dateLastModified
+     * @return Page
+     */
+    public function setDateLastModified($dateLastModified) {
+        $this->dateLastModified = $dateLastModified;
+        return $this;
+    }
+
+    /**
+     * toString Title
+     *
+     * @return string
+     */
+    public function __toString() {
+        if ($this->getTitle()) {
+            return (string) $this->getTitle();
+        } else {
+            return (string) 'New Blog Page/Post';
+        }
+    }
+
+    /**
+     * Returns PublishState list.
+     *
+     * @return array
+     */
+    public static function getPublishStateList()
+    {
+        return array(
+            Blog::STATUS_UNPUBLISHED    => "Unpublished",
+            Blog::STATUS_PUBLISHED      => "Published",
+            Blog::STATUS_PREVIEW        => "Preview",
+            Blog::STATUS_NONAUTHONLY    => "Anonymous Users Only",
+            Blog::STATUS_AUTHONLY       => "Authenticated Users Only",
+        );
+    }
+
+    /**
+     * toString PublishState
+     *
+     * @return string
+     */
+    public function getPublishStateAsString() {
+        // Defining the string values of the publish states
+        switch ($this->getPublishState()) {
+            case(Blog::STATUS_UNPUBLISHED): return "Unpublished";
+            case(Blog::STATUS_PUBLISHED): return "Published";
+            case(Blog::STATUS_PREVIEW): return "Preview";
+            case(Blog::STATUS_NONAUTHONLY): return "Anonymous Users Only";
+            case(Blog::STATUS_AUTHONLY): return "Authenticated Users Only";
+            default: return $this->getPublishState();
+        }
+    }
+
+    /**
+     * toString Pagetype
+     *
+     * @return string
+     */
+    public function getPagetypeAsString() {
+        // Defining the string values of the page types
+        switch ($this->getPagetype()) {
+            case('blog_article'): return "Blog Article";
+            case('blog_cat_page'): return "Blog Category List";
+            case('blog_filtered_list'): return "Blog Tag Results";
+            case('blog_home'): return "Blog Homepage";
+            default: return $this->getPagetype();
+        }
+    }
+
+}

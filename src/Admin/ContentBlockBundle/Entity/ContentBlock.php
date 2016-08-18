@@ -1,0 +1,913 @@
+<?php
+
+/*
+ * ContentBlock Bundle
+ * This file is part of the Admin.
+ *
+ * (c) Victoria Lasso
+ *
+ */
+
+namespace Admin\ContentBlockBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Admin\PageBundle\Entity\Page;
+use Admin\BlogBundle\Entity\Blog;
+use Admin\ContentBlockBundle\Entity\ContentImage;
+use Admin\ContentBlockBundle\Entity\ContentSlide;
+use Application\Sonata\MediaBundle\Entity\Media;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * Admin\ContentBlockBundle\Entity\ContentBlock
+ *
+ * @ORM\Table(name="content_blocks")
+ * @ORM\Entity
+ */
+class ContentBlock {
+
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $title;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $publishedState;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $availability = 'page';
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $showTitle;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $ordering;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $className = null;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $sizeClass = null;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $mediaSize = null;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $idName = null;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $contentType;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Admin\PageBundle\Entity\Page", mappedBy="maincontentblocks", cascade={"persist"})
+     * */
+    protected $maincontents;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Admin\BlogBundle\Entity\Blog", mappedBy="maincontentblocks", cascade={"persist"})
+     * */
+    protected $blog_maincontents;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Admin\PageBundle\Entity\Page", mappedBy="secondarycontentblocks", cascade={"persist"})
+     * */
+    protected $secondarycontents;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Admin\PageBundle\Entity\Page", mappedBy="extracontentblocks", cascade={"persist"})
+     * */
+    protected $extracontents;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Admin\BlogBundle\Entity\Blog", mappedBy="extracontentblocks", cascade={"persist"})
+     * */
+    protected $blog_extracontents;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Admin\PageBundle\Entity\Page", mappedBy="modalcontentblocks", cascade={"persist"})
+     * */
+    protected $modalcontents;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Admin\BlogBundle\Entity\Blog", mappedBy="modalcontentblocks", cascade={"persist"})
+     * */
+    protected $blog_modalcontents;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Admin\PageBundle\Entity\Page", mappedBy="bannercontentblocks", cascade={"persist"})
+     * */
+    protected $bannercontents;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Admin\BlogBundle\Entity\Blog", mappedBy="bannercontentblocks", cascade={"persist"})
+     * */
+    protected $blog_bannercontents;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="ContentImage", inversedBy="contentblocks", cascade={"all"}, orphanRemoval=true)
+     * @ORM\JoinTable(name="content_blocks_images")
+     */
+    protected $imageFiles;
+
+    /**
+     * @ORM\OneToOne(targetEntity="ContentSlide", orphanRemoval=true, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="slide", referencedColumnName="id", onDelete="CASCADE")
+     */
+    protected $slide;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", orphanRemoval=true, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="fileFile", referencedColumnName="id", onDelete="CASCADE")
+     */
+    protected $fileFile;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", orphanRemoval=true, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="vimeo", referencedColumnName="id", onDelete="CASCADE")
+     */
+    protected $vimeo;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $htmlText = null;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", orphanRemoval=true, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="youtube", referencedColumnName="id", onDelete="CASCADE")
+     */
+    protected $youtube;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Admin\ContentBlockBundle\Entity\ContentGlobalBlock", orphanRemoval=true, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="globalblock", referencedColumnName="id", onDelete="CASCADE")
+     */
+    protected $globalblock;
+
+    /**
+     * @ORM\Column(name="date_last_modified", type="datetime")
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $dateLastModified;
+
+    public function __construct() {
+        $this->maincontents = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->secondarycontents = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->extracontents = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->modalcontents = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->bannercontents = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->blog_maincontents = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->blog_extracontents = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->blog_modalcontents = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->blog_bannercontents = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->imagefiles = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return ContentBlock
+     */
+    public function setTitle($title) {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle() {
+        return $this->title;
+    }
+
+    /**
+     * Set publishedState
+     *
+     * @param integer $publishedState
+     * @return ContentBlock
+     */
+    public function setPublishedState($publishedState) {
+        $this->publishedState = $publishedState;
+
+        return $this;
+    }
+
+    /**
+     * Get publishedState
+     *
+     * @return integer
+     */
+    public function getPublishedState() {
+        return $this->publishedState;
+    }
+
+    /**
+     * Set availability
+     *
+     * @param string $availability
+     * @return ContentBlock
+     */
+    public function setAvailability($availability) {
+        $this->availability = $availability;
+
+        return $this;
+    }
+
+    /**
+     * Get availability
+     *
+     * @return string
+     */
+    public function getAvailability() {
+        return $this->availability;
+    }
+
+    /**
+     * Set showTitle
+     *
+     * @param integer $showTitle
+     * @return ContentBlock
+     */
+    public function setShowTitle($showTitle) {
+        $this->showTitle = $showTitle;
+
+        return $this;
+    }
+
+    /**
+     * Get showTitle
+     *
+     * @return integer
+     */
+    public function getShowTitle() {
+        return $this->showTitle;
+    }
+
+    /**
+     * Set ordering
+     *
+     * @param integer $ordering
+     * @return ContentBlock
+     */
+    public function setOrdering($ordering) {
+        $this->ordering = $ordering;
+
+        return $this;
+    }
+
+    /**
+     * Get ordering
+     *
+     * @return integer
+     */
+    public function getOrdering() {
+        return $this->ordering;
+    }
+
+    /**
+     * Set className
+     *
+     * @param string $className
+     * @return ContentBlock
+     */
+    public function setClassName($className) {
+        $this->className = $className;
+
+        return $this;
+    }
+
+    /**
+     * Get className
+     *
+     * @return string
+     */
+    public function getClassName() {
+        return $this->className;
+    }
+
+    /**
+     * Set sizeClass
+     *
+     * @param string $sizeClass
+     * @return ContentBlock
+     */
+    public function setSizeClass($sizeClass) {
+        $this->sizeClass = $sizeClass;
+
+        return $this;
+    }
+
+    /**
+     * Get sizeClass
+     *
+     * @return string
+     */
+    public function getSizeClass() {
+        return $this->sizeClass;
+    }
+
+    /**
+     * Set mediaSize
+     *
+     * @param string $mediaSize
+     * @return ContentBlock
+     */
+    public function setMediaSize($mediaSize) {
+        $this->mediaSize = $mediaSize;
+
+        return $this;
+    }
+
+    /**
+     * Get mediaSize
+     *
+     * @return string
+     */
+    public function getMediaSize() {
+        return $this->mediaSize;
+    }
+
+    /**
+     * Set idName
+     *
+     * @param string $idName
+     * @return ContentBlock
+     */
+    public function setIdName($idName) {
+        $this->idName = $idName;
+
+        return $this;
+    }
+
+    /**
+     * Get idName
+     *
+     * @return string
+     */
+    public function getIdName() {
+        return $this->idName;
+    }
+
+    /**
+     * Set contentType
+     *
+     * @param string $contentType
+     * @return ContentBlock
+     */
+    public function setContentType($contentType) {
+        $this->contentType = $contentType;
+
+        return $this;
+    }
+
+    /**
+     * Get contentType
+     *
+     * @return string
+     */
+    public function getContentType() {
+        return $this->contentType;
+    }
+
+    /**
+     * Set htmlText
+     *
+     * @param string $htmlText
+     * @return ContentBlock
+     */
+    public function setHtmlText($htmlText) {
+        $this->htmlText = $htmlText;
+
+        return $this;
+    }
+
+    /**
+     * Get htmlText
+     *
+     * @return string
+     */
+    public function getHtmlText() {
+        return $this->htmlText;
+    }
+
+    /**
+     * Add maincontents
+     *
+     * @param \Admin\PageBundle\Entity\Page $maincontents
+     * @return ContentBlock
+     */
+    public function addMaincontent(\Admin\PageBundle\Entity\Page $maincontents) {
+        $this->maincontents[] = $maincontents;
+
+        return $this;
+    }
+
+    /**
+     * Remove maincontents
+     *
+     * @param \Admin\PageBundle\Entity\Page $maincontents
+     */
+    public function removeMaincontent(\Admin\PageBundle\Entity\Page $maincontents) {
+        $this->maincontents->removeElement($maincontents);
+    }
+
+    /**
+     * Get maincontents
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMaincontents() {
+        return $this->maincontents;
+    }
+
+    /**
+     * Add secondarycontents
+     *
+     * @param \Admin\PageBundle\Entity\Page $secondarycontents
+     * @return ContentBlock
+     */
+    public function addSecondarycontent(\Admin\PageBundle\Entity\Page $secondarycontents) {
+        $this->secondarycontents[] = $secondarycontents;
+
+        return $this;
+    }
+
+    /**
+     * Remove secondarycontents
+     *
+     * @param \Admin\PageBundle\Entity\Page $secondarycontents
+     */
+    public function removeSecondarycontent(\Admin\PageBundle\Entity\Page $secondarycontents) {
+        $this->secondarycontents->removeElement($secondarycontents);
+    }
+
+    /**
+     * Get secondarycontents
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSecondarycontents() {
+        return $this->secondarycontents;
+    }
+
+    /**
+     * Add extracontents
+     *
+     * @param \Admin\PageBundle\Entity\Page $extracontents
+     * @return ContentBlock
+     */
+    public function addExtracontent(\Admin\PageBundle\Entity\Page $extracontents) {
+        $this->extracontents[] = $extracontents;
+
+        return $this;
+    }
+
+    /**
+     * Remove extracontents
+     *
+     * @param \Admin\PageBundle\Entity\Page $extracontents
+     */
+    public function removeExtracontent(\Admin\PageBundle\Entity\Page $extracontents) {
+        $this->extracontents->removeElement($extracontents);
+    }
+
+    /**
+     * Get extracontents
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getExtracontents() {
+        return $this->extracontents;
+    }
+
+    /**
+     * Add modalcontents
+     *
+     * @param \Admin\PageBundle\Entity\Page $modalcontents
+     * @return ContentBlock
+     */
+    public function addModalcontent(\Admin\PageBundle\Entity\Page $modalcontents) {
+        $this->modalcontents[] = $modalcontents;
+
+        return $this;
+    }
+
+    /**
+     * Remove modalcontents
+     *
+     * @param \Admin\PageBundle\Entity\Page $modalcontents
+     */
+    public function removeModalcontent(\Admin\PageBundle\Entity\Page $modalcontents) {
+        $this->modalcontents->removeElement($modalcontents);
+    }
+
+    /**
+     * Get modalcontents
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getModalcontents() {
+        return $this->modalcontents;
+    }
+
+    /**
+     * Add blog_extracontents
+     *
+     * @param \Admin\BlogBundle\Entity\Blog $blogExtracontents
+     * @return ContentBlock
+     */
+    public function addBlogExtracontent(\Admin\BlogBundle\Entity\Blog $blogExtracontents) {
+        $this->blog_extracontents[] = $blogExtracontents;
+
+        return $this;
+    }
+
+    /**
+     * Remove blog_extracontents
+     *
+     * @param \Admin\BlogBundle\Entity\Blog $blogExtracontents
+     */
+    public function removeBlogExtracontent(\Admin\BlogBundle\Entity\Blog $blogExtracontents) {
+        $this->blog_extracontents->removeElement($blogExtracontents);
+    }
+
+    /**
+     * Get blog_extracontents
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBlogExtracontents() {
+        return $this->blog_extracontents;
+    }
+
+    /**
+     * Add blog_maincontents
+     *
+     * @param \Admin\BlogBundle\Entity\Blog $blogMaincontents
+     * @return ContentBlock
+     */
+    public function addBlogMaincontent(\Admin\BlogBundle\Entity\Blog $blogMaincontents) {
+        $this->blog_maincontents[] = $blogMaincontents;
+
+        return $this;
+    }
+
+    /**
+     * Remove blog_maincontents
+     *
+     * @param \Admin\BlogBundle\Entity\Blog $blogMaincontents
+     */
+    public function removeBlogMaincontent(\Admin\BlogBundle\Entity\Blog $blogMaincontents) {
+        $this->blog_maincontents->removeElement($blogMaincontents);
+    }
+
+    /**
+     * Get blog_maincontents
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBlogMaincontents() {
+        return $this->blog_maincontents;
+    }
+
+    /**
+     * Add blog_modalcontents
+     *
+     * @param \Admin\BlogBundle\Entity\Blog $blogModalcontents
+     * @return ContentBlock
+     */
+    public function addBlogModalcontent(\Admin\BlogBundle\Entity\Blog $blogModalcontents) {
+        $this->blog_modalcontents[] = $blogModalcontents;
+
+        return $this;
+    }
+
+    /**
+     * Remove blog_modalcontents
+     *
+     * @param \Admin\BlogBundle\Entity\Blog $blogModalcontents
+     */
+    public function removeBlogModalcontent(\Admin\BlogBundle\Entity\Blog $blogModalcontents) {
+        $this->blog_modalcontents->removeElement($blogModalcontents);
+    }
+
+    /**
+     * Get blog_modalcontents
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBlogModalcontents() {
+        return $this->blog_modalcontents;
+    }
+
+    /**
+     * Add bannercontents
+     *
+     * @param \Admin\PageBundle\Entity\Page $bannercontents
+     * @return ContentBlock
+     */
+    public function addBannercontent(\Admin\PageBundle\Entity\Page $bannercontents) {
+        $this->bannercontents[] = $bannercontents;
+
+        return $this;
+    }
+
+    /**
+     * Remove bannercontents
+     *
+     * @param \Admin\PageBundle\Entity\Page $bannercontents
+     */
+    public function removeBannercontent(\Admin\PageBundle\Entity\Page $bannercontents) {
+        $this->bannercontents->removeElement($bannercontents);
+    }
+
+    /**
+     * Get bannercontents
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBannercontents() {
+        return $this->bannercontents;
+    }
+
+    /**
+     * Add blog_bannercontents
+     *
+     * @param \Admin\BlogBundle\Entity\Blog $blogBannercontents
+     * @return ContentBlock
+     */
+    public function addBlogBannercontent(\Admin\BlogBundle\Entity\Blog $blogBannercontents) {
+        $this->blog_bannercontents[] = $blogBannercontents;
+
+        return $this;
+    }
+
+    /**
+     * Remove blog_bannercontents
+     *
+     * @param \Admin\BlogBundle\Entity\Blog $blogBannercontents
+     */
+    public function removeBlogBannercontent(\Admin\BlogBundle\Entity\Blog $blogBannercontents) {
+        $this->blog_bannercontents->removeElement($blogBannercontents);
+    }
+
+    /**
+     * Get blog_bannercontents
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBlogBannercontents() {
+        return $this->blog_bannercontents;
+    }
+
+    /**
+     * Add imageFiles
+     *
+     * @param \Admin\ContentBlockBundle\Entity\ContentImage $imageFiles
+     * @return ContentBlock
+     */
+    public function addImageFile(\Admin\ContentBlockBundle\Entity\ContentImage $imageFiles) {
+        $this->imageFiles[] = $imageFiles;
+
+        return $this;
+    }
+
+    /**
+     * Remove imageFiles
+     *
+     * @param \Admin\ContentBlockBundle\Entity\ContentImage $imageFiles
+     */
+    public function removeImageFile(\Admin\ContentBlockBundle\Entity\ContentImage $imageFiles) {
+        $this->imageFiles->removeElement($imageFiles);
+    }
+
+    /**
+     * Get imageFiles
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getImageFiles() {
+        return $this->imageFiles;
+    }
+
+    /**
+     * Set slide
+     *
+     * @param \Admin\ContentBlockBundle\Entity\ContentSlide $slide
+     * @return ContentBlock
+     */
+    public function setSlide(\Admin\ContentBlockBundle\Entity\ContentSlide $slide = null) {
+        $this->slide = $slide;
+
+        return $this;
+    }
+
+    /**
+     * Get slide
+     *
+     * @return \Admin\ContentBlockBundle\Entity\ContentSlide
+     */
+    public function getSlide() {
+        return $this->slide;
+    }
+
+    /**
+     * Set fileFile
+     *
+     * @param \Application\Sonata\MediaBundle\Entity\Media $fileFile
+     * @return ContentBlock
+     */
+    public function setFileFile(\Application\Sonata\MediaBundle\Entity\Media $fileFile = null) {
+        $this->fileFile = $fileFile;
+
+        return $this;
+    }
+
+    /**
+     * Get fileFile
+     *
+     * @return \Application\Sonata\MediaBundle\Entity\Media
+     */
+    public function getFileFile() {
+        return $this->fileFile;
+    }
+
+    /**
+     * Set vimeo
+     *
+     * @param \Application\Sonata\MediaBundle\Entity\Media $vimeo
+     * @return ContentBlock
+     */
+    public function setVimeo(\Application\Sonata\MediaBundle\Entity\Media $vimeo = null) {
+        $this->vimeo = $vimeo;
+
+        return $this;
+    }
+
+    /**
+     * Get vimeo
+     *
+     * @return \Application\Sonata\MediaBundle\Entity\Media
+     */
+    public function getVimeo() {
+        return $this->vimeo;
+    }
+
+    /**
+     * Set youtube
+     *
+     * @param \Application\Sonata\MediaBundle\Entity\Media $youtube
+     * @return ContentBlock
+     */
+    public function setYoutube(\Application\Sonata\MediaBundle\Entity\Media $youtube = null) {
+        $this->youtube = $youtube;
+
+        return $this;
+    }
+
+    /**
+     * Get youtube
+     *
+     * @return \Application\Sonata\MediaBundle\Entity\Media
+     */
+    public function getYoutube() {
+        return $this->youtube;
+    }
+
+    /**
+     * Set globalblock
+     *
+     * @param \Admin\ContentBlockBundle\Entity\ContentGlobalBlock $globalblock
+     * @return ContentBlock
+     */
+    public function setGlobalblock(\Admin\ContentBlockBundle\Entity\ContentGlobalBlock $globalblock = null) {
+        $this->globalblock = $globalblock;
+
+        return $this;
+    }
+
+    /**
+     * Get globalblock
+     *
+     * @return \Admin\ContentBlockBundle\Entity\ContentGlobalBlock
+     */
+    public function getGlobalblock() {
+        return $this->globalblock;
+    }
+
+    /**
+     * Get dateLastModified
+     *
+     * @return integer
+     */
+    public function getDateLastModified() {
+        return $this->dateLastModified;
+    }
+
+    /**
+     * toString Title
+     *
+     * @return string
+     */
+    public function __toString() {
+        if ($this->getTitle()) {
+            return (string) $this->getTitle();
+        } else {
+            return (string) 'New Content Block';
+        }
+    }
+
+    /**
+     * toString PublishState
+     *
+     * @return string
+     */
+    public function getPublishStateAsString() {
+        switch ($this->getPublishedState()) {
+            case(0): return "Unpublished";
+            case(1): return "Published";
+        }
+    }
+
+    /**
+     * toString ShowTitle
+     *
+     * @return string
+     */
+    public function getShowTitleAsString() {
+        switch ($this->getShowTitle()) {
+            case(0): return "Hidden";
+            case(1): return "Visible";
+        }
+    }
+
+    /**
+     * toString ShowTitle
+     *
+     * @return string
+     */
+    public function getAvailabilityAsString() {
+        switch ($this->getAvailability()) {
+            case('page'): return "Page Only";
+            case('global'): return "Global";
+        }
+    }
+
+    /**
+     * toString ShowTitle
+     *
+     * @return string
+     */
+    public function getContentTypeAsString() {
+        switch ($this->getContentType()) {
+            case('html'): return "Text/HTML";
+            case('image'): return "Image";
+            case('file'): return "File Attachment";
+            case('youtube'): return "YouTube Video";
+            case('vimeo'): return "Vimeo Video";
+            case('slide'): return "Banner Slide";
+            case('contact'): return "Contact Form";
+            case('globalblock'): return "Global Content Block";
+        }
+    }
+
+}

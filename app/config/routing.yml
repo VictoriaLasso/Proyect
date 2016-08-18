@@ -1,3 +1,7 @@
+security:
+    resource: "@SecurityBundle/Resources/config/routing.yml"
+    prefix:   /
+
 login:
     resource: "@LoginBundle/Resources/config/routing.yml"
     prefix:   /
